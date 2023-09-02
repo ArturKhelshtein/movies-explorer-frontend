@@ -1,0 +1,37 @@
+.header__menu-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 999px) {
+  .header__menu-container {
+    display: none;
+  }
+}
+
+.header__menu-container_unwrapped {
+}
+
+@media (max-width: 999px) {
+  .header__menu-container_unwrapped {
+    position: fixed;
+    right: 0;
+    height: 100vh;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    animation: unwrapped 0.1s ease;
+  }
+}
+
+@keyframes unwrapped {
+  0% {
+    transform: translate(520px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}

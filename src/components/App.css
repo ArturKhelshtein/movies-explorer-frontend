@@ -1,0 +1,15 @@
+.app {
+  position: relative;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  font-family: "Inter", "Arial", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: subpixel-antialiased;
+  -webkit-text-size-adjust: auto;
+  text-size-adjust: auto;
+}

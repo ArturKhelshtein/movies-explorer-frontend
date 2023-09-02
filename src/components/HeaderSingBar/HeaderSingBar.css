@@ -1,0 +1,12 @@
+.header__sign-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+}
+@media (max-width: 669px) {
+  .header__sign-bar-container {
+    gap: 9px;
+  }
+}

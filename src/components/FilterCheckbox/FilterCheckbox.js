@@ -8,7 +8,7 @@ function FilterCheckbox() {
         type="checkbox"
         defaultChecked
       />
-      <div className="filter-checkbox__icon" />
+      <span className="filter-checkbox__icon" />
       <span className="filter-checkbox__label">Короткометражки</span>
     </label>
   );

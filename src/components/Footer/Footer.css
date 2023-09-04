@@ -45,7 +45,7 @@
 }
 @media (max-width: 669px) {
   .footer__content {
-    padding-top: 30px;
+		padding-top: 32px;
     grid-template-columns: 1fr;
     grid-template-areas:
       "link"
@@ -80,7 +80,7 @@
     grid-area: link;
     justify-self: center;
     flex-direction: column;
-    gap: 15px;
+    gap: 14px;
   }
 }
 

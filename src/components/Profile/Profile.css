@@ -1,15 +1,17 @@
 .profile {
+  width: 396px;
   height: 100%;
   margin: 0 auto;
   padding-top: 74px;
   padding-bottom: 10%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
   box-sizing: border-box;
 }
 @media (max-width: 999px) {
   .profile {
+    width: 410px;
     padding-top: 236px;
     padding-bottom: 95px;
   }
@@ -42,16 +44,26 @@
 }
 
 .profile__form {
-  height: 100%;
-  padding-bottom: 16px;
+  /*height: 100%; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+  /*padding-bottom: 16px; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+  padding-bottom: 30px; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /*justify-content: space-between; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+}
+@media (max-width: 999px) {
+  .profile__form {
+    padding-bottom: 20px;
+  }
 }
 
 .profile__input-container-group {
   display: flex;
   flex-direction: column;
+  padding-bottom: 180px; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+}
+.profile__input-container-group:last-of-type {
+  padding-bottom: 0; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
 }
 
 .profile__input-container {
@@ -82,14 +94,9 @@
 }
 .profile__separator {
   margin: 5px 0;
-  width: 410px;
+  width: 100%;
   height: 1px;
   background-color: #e8e8e8;
-}
-@media (max-width: 699px) {
-  .profile__separator {
-    width: 100%;
-  }
 }
 
 .profile__error {
@@ -100,12 +107,21 @@
   font-weight: 400;
 }
 
-.profile__start-edit_true {
+.profile__button-save {
+  display: none;
+}
+
+.profile__button-save_show {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
-.profile__start-edit_false {
+.profile__button-edit {
   display: none;
+}
+
+.profile__button-edit_show {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

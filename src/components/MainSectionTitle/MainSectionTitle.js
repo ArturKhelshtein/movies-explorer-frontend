@@ -1,10 +1,12 @@
-import './MainSectionTitle.css';
-
-function MainSectionTitle({ title }) {
+function MainSectionTitle({ title, styleTitle = '' }) {
   return (
     <>
-      <h2 className="main__section-title">{title}</h2>
-      <div className="main__section-title-separator" />
+      <h2 className="main-section__title">{title}</h2>
+      <div
+        className={`main-section__title-separator ${
+          styleTitle ? `main-section__title-separator_type_${styleTitle}` : ''
+        }`}
+      />
     </>
   );
 }

@@ -10,7 +10,12 @@
   background-color: #fff;
   box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
 }
-@media (max-width: 669px) {
+@media (max-width: 999px) {
+  .movies-card {
+    grid-template-rows: 190px 67px;
+  }
+}
+@media (max-width: 765px) {
   .movies-card {
     grid-template-rows: 168px 67px;
   }
@@ -93,7 +98,7 @@
   width: 16px;
   height: 16px;
   border: none;
-  /* transform: rotate(-45deg); */
+	cursor: pointer;
 }
 .movies-card__icon-button-delete::before,
 .movies-card__icon-button-delete::after {

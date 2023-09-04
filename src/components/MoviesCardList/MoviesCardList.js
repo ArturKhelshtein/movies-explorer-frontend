@@ -21,7 +21,7 @@ function MoviesCardList({ moviesCards }) {
   }
 
   return (
-    <section className="movies-card-list">
+    <div className="movies-card-list">
       {moviesCards.map((card) => (
         <MoviesCard
           key={card._id}
@@ -30,7 +30,7 @@ function MoviesCardList({ moviesCards }) {
           isSaveMovie={isSaveMovie}
         />
       ))}
-    </section>
+    </div>
   );
 }
 

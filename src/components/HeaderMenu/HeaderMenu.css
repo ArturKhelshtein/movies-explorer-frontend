@@ -17,6 +17,7 @@
 @media (max-width: 999px) {
   .header__menu-container_unwrapped {
     position: fixed;
+    top: 0;
     right: 0;
     height: 100vh;
     max-width: 520px;

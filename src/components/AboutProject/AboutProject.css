@@ -1,20 +1,26 @@
-.about-project__article-container {
+.about-project-article {
   margin-bottom: 110px;
   display: flex;
-  gap: 40px;
+  gap: 45px;
+}
+@media (max-width: 999px) {
+  .about-project-article {
+    margin-bottom: 94px;
+    gap: 40px;
+  }
 }
 @media (max-width: 669px) {
-  .about-project__article-container {
-    margin-bottom: 60px;
+  .about-project-article {
+    margin-bottom: 62px;
     flex-direction: column;
     gap: 58px;
   }
 }
 
-.about-project__article {
+.about-project-article__article {
 }
 
-.about-project__article-header {
+.about-project-article__header {
   margin: 0;
   padding-bottom: 26px;
   color: #000;
@@ -22,15 +28,20 @@
   font-weight: 400;
   letter-spacing: -0.8px;
 }
+@media (max-width: 999px) {
+  .about-project-article__header {
+    padding-bottom: 23px;
+  }
+}
 @media (max-width: 669px) {
-  .about-project__article-header {
+  .about-project-article__header {
     padding-bottom: 16px;
     font-size: 18px;
     letter-spacing: -0.72px;
   }
 }
 
-.about-project__article-paragraph {
+.about-project-article__paragraph {
   margin: 0;
   color: #000;
   font-size: 14px;
@@ -38,27 +49,32 @@
   line-height: 20px;
 }
 @media (max-width: 999px) {
-  .about-project__article-paragraph {
+  .about-project-article__paragraph {
     margin: 0;
     font-size: 12px;
     line-height: 18px;
   }
 }
 @media (max-width: 669px) {
-  .about-project__article-paragraph {
+  .about-project-article__paragraph {
     margin: 0;
     font-size: 11px;
     line-height: 16px;
   }
 }
 
-.about-project__timeline-container {
+.about-project-timeline {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 4fr;
 }
+@media (max-width: 669px) {
+  .about-project-timeline {
+    grid-template-columns: 5fr 9fr;
+  }
+}
 
-.about-project__timeline {
+.about-project-timeline__timeline {
   padding: 9px 0;
   color: #000;
   font-size: 14px;
@@ -66,22 +82,28 @@
   text-align: center;
 }
 @media (max-width: 669px) {
-  .about-project__timeline {
+  .about-project-timeline__timeline {
     padding: 11px 10px;
     font-size: 11px;
   }
 }
 
-.about-project__timeline_type_preparatory {
+.about-project-timeline__timeline_type_preparatory {
   background-color: #3456f3;
   color: #fff;
 }
 
-.about-project__timeline_type_main {
+.about-project-timeline__timeline_type_main {
   background-color: #f2f2f2;
 }
 
-.about-project__timeline_type_description {
+.about-project-timeline__timeline_type_description {
+  padding: 16px 0;
   color: #a0a0a0;
   font-weight: 500;
+}
+@media (max-width: 669px) {
+  .about-project-timeline__timeline_type_description {
+    padding: 10px 0;
+  }
 }

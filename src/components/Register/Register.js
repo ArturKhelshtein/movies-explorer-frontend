@@ -1,5 +1,3 @@
-import './Register.css';
-
 import Sign from '../Sign/Sign';
 import useForm from '../../hooks/useForm';
 
@@ -32,19 +30,21 @@ function Register({
       linkTo={linkTo}
       handleSubmit={handleSubmit}
     >
-      <label className="register__input-label">Имя</label>
+      <label className="sign__input-label">Имя</label>
       <input
-        className="register__input register__input_value_name"
+        className="sign__input sign__input_value_name"
         type="text"
         name="name"
+				minLength="2"
+				maxLength="30"
         placeholder="Имя"
         value={values.name || ''}
         onChange={handleChange}
         required
       />
-      <label className="register__input-label">E-mail</label>
+      <label className="sign__input-label">E-mail</label>
       <input
-        className="register__input register__input_value_email"
+        className="sign__input sign__input_value_email"
         type="email"
         name="email"
         placeholder="Email"
@@ -52,17 +52,19 @@ function Register({
         onChange={handleChange}
         required
       />
-      <label className="register__input-label">Пароль</label>
+      <label className="sign__input-label">Пароль</label>
       <input
-        className="register__input register__input_value_password register__input_error"
+        className="sign__input sign__input_value_password sign__input_error"
         type="password"
         name="password"
+				minLength="2"
+				maxLength="30"
         placeholder="Пароль"
         value={values.password || ''}
         onChange={handleChange}
         required
       />
-      <span className="register__error">Что-то пошло не&nbsp;так...</span>
+      <span className="sign__error">Что-то пошло не&nbsp;так...</span>
     </Sign>
   );
 }

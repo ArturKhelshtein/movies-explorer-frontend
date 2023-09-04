@@ -44,7 +44,8 @@
 }
 
 .sign__form {
-  height: 100%;
+  /*height: 100%;вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+	height: 412px;/*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -99,4 +100,46 @@
   .sign__link {
     font-size: 12px;
   }
+}
+
+.sign__input-label {
+  margin-bottom: 5px;
+  color: #a0a0a0;
+  font-size: 10px;
+  font-weight: 400;
+}
+.sign__input {
+  margin-bottom: 24px;
+  width: 100%;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #e8e8e8;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+}
+.sign__input:focus {
+  outline: none;
+  border-color: #3456f3;
+}
+.sign__input:last-of-type {
+  margin-bottom: 6px;
+}
+.sign__input_value_name {
+}
+.sign__input_value_email {
+}
+
+.sign__input_value_password {
+}
+.sign__input_error {
+  color: #ee3465;
+}
+.sign__error {
+  color: #ee3465;
+  color: #ee3465;
+  font-size: 10px;
+  font-weight: 400;
 }

@@ -4,12 +4,8 @@ import MainSection from '../MainSection/MainSection';
 
 function Techs() {
   return (
-    <MainSection
-      title="Технологии"
-      id="techs"
-      style="main__section_type_bg-gray"
-    >
-      <div className="techs__content">
+    <MainSection title="Технологии" id="techs" style={`techs`}>
+      <div className="techs">
         <h3 className="techs__header">7 технологий</h3>
         <p className="techs__paragraph">
           На курсе веб&#8209;разработки мы освоили технологии, которые применили

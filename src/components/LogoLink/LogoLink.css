@@ -1,11 +1,11 @@
-.logo__container {
+.logo {
   width: 38px;
   height: 38px;
   display: flex;
   opacity: 1;
 }
 
-.logo__container:hover {
+.logo:hover {
   opacity: 0.8;
   cursor: pointer;
 }

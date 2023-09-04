@@ -1,23 +1,81 @@
-.main__section {
-  padding: 110px 70px;
+.main-section {
+  padding: 103px 70px;
 }
 @media (max-width: 999px) {
-  .main__section {
-    padding: 90px 50px;
+  .main-section {
+    padding: 8px 50px;
   }
 }
 @media (max-width: 669px) {
-  .main__section {
+  .main-section {
     padding: 70px 18px;
   }
 }
 
-.main__section_type_bg-gray {
+.main-section_type_techs {
   background-color: #f5f5f5;
 }
 
-.main__content {
+.main-section_type_about-me {
+}
+@media (max-width: 669px) {
+  .main-section_type_about-me {
+		padding: 70px 14px;
+  }
+}
+
+.main-section__content {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main-section__title {
+  margin: 0;
+  padding-bottom: 23px;
+  color: #000;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.88px;
+}
+@media (max-width: 669px) {
+  .main-section__title {
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+}
+
+.main-section__title-separator {
+  height: 1px;
+  background-color: #000;
+  margin-bottom: 90px;
+}
+@media (max-width: 999px) {
+  .main-section__title-separator {
+    margin-bottom: 80px;
+  }
+}
+@media (max-width: 669px) {
+  .main-section__title-separator {
+    margin-bottom: 60px;
+  }
+}
+
+.main-section-title__separator_type_about-project {
+  margin-bottom: 72px;
+}
+@media (max-width: 669px) {
+  .main-section-title__separator_type_about-project {
+    margin-bottom: 62px;
+  }
+}
+
+.main-section-title__separator_type_about-me {
+  margin-bottom: 68px;
+}
+@media (max-width: 669px) {
+  .main-section-title__separator_type_about-me {
+    margin-bottom: 61px;
+  }
 }

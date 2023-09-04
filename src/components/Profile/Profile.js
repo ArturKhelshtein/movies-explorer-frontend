@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './Profile.css';
 
@@ -6,7 +7,8 @@ import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Button from '../Button/Button';
 
-function Profile() {
+function Profile({ setLogged }) {
+  const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
   const [startEdit, setStartEdit] = React.useState(false);
   const { values, handleChange, setValues } = useForm({});
@@ -28,6 +30,8 @@ function Profile() {
   }
 
   function handleSignOut() {
+    navigate('/');
+    setLogged(false);
     return console.log(`выйти из профиля пользователя. заглушка`);
   }
 
@@ -61,7 +65,7 @@ function Profile() {
             <input
               className="profile__input profile__input_value_email"
               type="email"
-              name="about"
+              name="email"
               placeholder="Почта"
               value={values.email || ''}
               onChange={handleChange}
@@ -71,10 +75,8 @@ function Profile() {
         </div>
         <div className="profile__input-container-group">
           <div
-            className={` ${
-              startEdit
-                ? 'profile__start-edit_true'
-                : 'profile__start-edit_false'
+            className={`profile__button-save ${
+              startEdit ? 'profile__button-save_show' : ''
             } `}
           >
             <span className="profile__error">
@@ -89,8 +91,8 @@ function Profile() {
         </div>
       </form>
       <div
-        className={` ${
-          startEdit ? 'profile__start-edit_false' : 'profile__start-edit_true'
+        className={`profile__button-edit ${
+          startEdit ? '' : 'profile__button-edit_show'
         } `}
       >
         <Button

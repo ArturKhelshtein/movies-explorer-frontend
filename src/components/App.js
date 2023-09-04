@@ -67,7 +67,7 @@ function App() {
             path="/saved-movies"
             element={<SavedMovies moviesCards={moviesCards} />}
           />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile setLogged={setLogged}/>} />
           <Route path="/*" element={<NoFound />} />
         </Routes>
         <Footer />

@@ -17,8 +17,11 @@
   }
 }
 
+.nav-tab__header {
+	display: none;
+}
+
 .nav-tab__link {
-  padding-bottom: -1px;
   border-bottom: #000 solid 1px;
   color: #000;
   font-size: 13px;

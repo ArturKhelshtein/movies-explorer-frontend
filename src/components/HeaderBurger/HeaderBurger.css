@@ -1,10 +1,10 @@
-.header__burger_container {
+.header-burger {
   display: none;
 }
 
 @media (max-width: 999px) {
-  .header__burger_container {
-    position: absolute;
+  .header-burger {
+    position: fixed;
     top: 16px;
     right: 30px;
     box-sizing: border-box;
@@ -19,7 +19,7 @@
   }
 }
 @media (max-width: 669px) {
-  .header__burger_container {
+  .header-burger {
     top: 17px;
     right: 13px;
     width: 40px;
@@ -27,12 +27,12 @@
   }
 }
 
-.header__burger_container:hover {
+.header-burger:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
-.header__burger {
+.header-burger__icon {
   position: relative;
   padding: 0;
   display: flex;
@@ -42,61 +42,61 @@
   background-color: #000;
 }
 @media (max-width: 669px) {
-  .header__burger {
+  .header-burger__icon {
     width: 22px;
     height: 2.5px;
   }
 }
 
-.header__burger::before,
-.header__burger::after {
+.header-burger__icon::before,
+.header-burger__icon::after {
   content: "";
   width: 28px;
   height: 3px;
-  position: absolute;
+  position: fixed;
   background-color: #000;
   transition-duration: 0.1s;
 }
 @media (max-width: 669px) {
-  .header__burger::before,
-  .header__burger::after {
+  .header-burger__icon::before,
+  .header-burger__icon::after {
     width: 22px;
     height: 2.5px;
   }
 }
 
-.header__burger::before {
+.header-burger__icon::before {
   transform: translateY(-11px);
 }
 @media (max-width: 669px) {
-  .header__burger::before {
+  .header-burger__icon::before {
     transform: translateY(-9px);
   }
 }
 
-.header__burger::after {
+.header-burger__icon::after {
   transform: translateY(11px);
 }
 @media (max-width: 669px) {
-  .header__burger::after {
+  .header-burger__icon::after {
     transform: translateY(9px);
   }
 }
 
-.header__burger_invisible {
+.header-burger__checkbox-invisible {
   height: 0;
   width: 0;
   opacity: 1;
 }
 
-.header__burger_invisible:checked ~ .header__burger {
+.header-burger__checkbox-invisible:checked ~ .header-burger__icon {
   background-color: transparent;
 }
 
-.header__burger_invisible:checked ~ .header__burger::before {
+.header-burger__checkbox-invisible:checked ~ .header-burger__icon::before {
   transform: rotate(45deg);
 }
 
-.header__burger_invisible:checked ~ .header__burger::after {
+.header-burger__checkbox-invisible:checked ~ .header-burger__icon::after {
   transform: rotate(-45deg);
 }

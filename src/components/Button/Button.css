@@ -84,7 +84,7 @@
 }
 
 .button_type_submit-form {
-  width: 396px;
+  width: 100%;
   padding-top: 13px;
   padding-bottom: 15px;
   background-color: #3456f3;
@@ -95,7 +95,6 @@
 }
 @media (max-width: 669px) {
   .button_type_submit-form {
-    width: 100%;
     font-size: 12px;
   }
 }

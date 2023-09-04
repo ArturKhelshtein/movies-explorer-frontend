@@ -6,7 +6,7 @@ import IconLogo from '../IconLogo/IconLogo';
 
 function LogoLink() {
   return (
-    <Link to="/" className="logo__container">
+    <Link to="/" className="logo">
       <IconLogo />
     </Link>
   );

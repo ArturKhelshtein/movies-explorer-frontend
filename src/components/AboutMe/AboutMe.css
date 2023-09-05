@@ -18,7 +18,7 @@
     grid-template-areas:
       "photo"
       "text";
-    gap: 40px;
+    gap: 42px;
   }
 }
 
@@ -112,6 +112,10 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
+}
+.about-me__link:focus-visible {
+  outline: #3456f3 solid;
+  border-radius: 2px;
 }
 .about-me__link:hover {
   opacity: 0.7;

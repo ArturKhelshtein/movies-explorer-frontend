@@ -15,7 +15,7 @@ function HeaderMenu() {
 
   function goToAccount() {
     navigate('/profile');
-    setIsWrapped(false);
+    setIsWrapped(true);
   }
   function handleToggleWrappedBurger() {
     return isWrapped === false ? setIsWrapped(true) : setIsWrapped(false);

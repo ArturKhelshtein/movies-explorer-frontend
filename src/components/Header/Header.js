@@ -9,23 +9,23 @@ import LogoLink from '../LogoLink/LogoLink';
 
 function Header({ isLogged }) {
   return (
-    <header className="header">
-      <Routes>
-        <Route
-          exact
-          path="/*"
-          element={
-            <>
+    <Routes>
+      <Route
+        exact
+        path="/*"
+        element={
+          <header className="header">
+            <div className="header__container">
               <LogoLink />
               {!isLogged && <HeaderSingBar />}
               {isLogged && <HeaderMenu />}
-            </>
-          }
-        />
-        <Route path="/signup" />
-        <Route path="/signin" />
-      </Routes>
-    </header>
+            </div>
+          </header>
+        }
+      />
+      <Route path="/signup" />
+      <Route path="/signin" />
+    </Routes>
   );
 }
 

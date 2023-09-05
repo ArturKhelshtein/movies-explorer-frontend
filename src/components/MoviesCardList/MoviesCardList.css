@@ -1,5 +1,5 @@
 .movies-card-list {
-  padding: 70px 70px 30px;
+  padding: 0 0 80px;
   display: grid;
   grid-template-columns: repeat(4, minmax(270px, 270px));
   column-gap: 20px;
@@ -16,13 +16,13 @@
 }
 @media (max-width: 999px) {
   .movies-card-list {
-    padding: 70px 30px 30px;
+    padding: 0 0 30px;
     grid-template-columns: repeat(2, minmax(339px, 339px));
   }
 }
 @media (max-width: 765px) {
   .movies-card-list {
-    padding: 40px 10px 30px;
+    padding: 0 0 30px;
     grid-template-columns: repeat(1, minmax(300px, 300px));
     row-gap: 20px;
   }

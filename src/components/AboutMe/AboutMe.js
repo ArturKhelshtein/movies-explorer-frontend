@@ -11,7 +11,6 @@ function AboutMe() {
     <MainSection
       title="Студент"
       id="aboutMe"
-      styleTitle={`about-me`}
       style={`about-me`}
     >
       <div className="about-me">

@@ -1,3 +1,8 @@
 .saved-movies {
   background-color: #fafafa;
 }
+
+.saved-movies__container {
+	max-width: 1280px;
+	margin: 0 auto;
+}

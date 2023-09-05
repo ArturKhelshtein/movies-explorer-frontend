@@ -1,11 +1,12 @@
 .sign {
-  position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
   padding: 70px 0 70px;
   box-sizing: border-box;
+}
+@media (max-width: 999px) {
+  .sign {
+    padding: 231px 0 70px;
+  }
 }
 @media (max-width: 669px) {
   .sign {
@@ -44,11 +45,15 @@
 }
 
 .sign__form {
-  /*height: 100%;вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
-	height: 412px;/*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+  height: 412px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+@media (max-width: 669px) {
+  .sign__form {
+    height: 495px;
+  }
 }
 
 .sign__form-input {

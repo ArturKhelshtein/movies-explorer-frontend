@@ -13,7 +13,7 @@
 @media (max-width: 669px) {
   .header-navigation {
     margin-top: 146px;
-    gap: 24px;
+    gap: 25px;
   }
 }
 
@@ -35,6 +35,7 @@
 }
 
 .header-navigation__link {
+	transition: width 1s;
 }
 
 .header-navigation__link_active {
@@ -42,7 +43,8 @@
 }
 @media (max-width: 999px) {
   .header-navigation__link_active {
-    text-decoration: underline;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
   }
 }
 

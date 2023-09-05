@@ -1,14 +1,14 @@
 .search-form {
-  padding: 70px 70px 11px 70px;
+  padding: 70px 70px 81px;
 }
 @media (max-width: 999px) {
   .search-form {
-    padding: 80px 30px 10px 30px;
+    padding: 80px 30px 80px;
   }
 }
 @media (max-width: 765px) {
   .search-form {
-    padding: 80px 10px 10px 10px;
+    padding: 80px 10px 51px;
   }
 }
 

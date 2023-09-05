@@ -7,9 +7,11 @@ import Preloader from '../Preloader/Preloader.js';
 function SavedMovies({ moviesCards }) {
   return (
     <main className="saved-movies">
-      <SearchForm />
-      {/* <Preloader /> */}
-      <MoviesCardList moviesCards={moviesCards} />
+      <section className="saved-movies__container">
+        <SearchForm />
+        {/* <Preloader /> */}
+        <MoviesCardList moviesCards={moviesCards} />
+      </section>
     </main>
   );
 }

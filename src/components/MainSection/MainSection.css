@@ -1,26 +1,43 @@
 .main-section {
-  padding: 103px 70px;
+}
+
+.main-section__container {
+  max-width: 1280px;
+  margin: 0 auto;
+	padding: 103px 70px;
+	box-sizing: border-box;
 }
 @media (max-width: 999px) {
-  .main-section {
-    padding: 8px 50px;
+	.main-section__container  {
+    padding: 87px 50px;
   }
 }
 @media (max-width: 669px) {
-  .main-section {
-    padding: 70px 18px;
+	.main-section__container  {
+    padding: 68px 18px;
   }
 }
 
-.main-section_type_techs {
+.main-section__container_type_techs {
   background-color: #f5f5f5;
 }
+@media (max-width: 669px) {
+	.main-section__container_type_techs {
+    background-color: #fafafa;
+  }
+}
 
-.main-section_type_about-me {
+.main-section__container_type_about-me {
+	padding: 103px 70px 106px;
+}
+@media (max-width: 999px) {
+  .main-section__container_type_about-me {
+    padding: 74px 50px;
+  }
 }
 @media (max-width: 669px) {
-  .main-section_type_about-me {
-		padding: 70px 14px;
+  .main-section__container_type_about-me {
+    padding: 68px 14px 50px;
   }
 }
 
@@ -62,20 +79,20 @@
   }
 }
 
-.main-section-title__separator_type_about-project {
+.main-section__title-separator_type_about-project {
   margin-bottom: 72px;
 }
 @media (max-width: 669px) {
-  .main-section-title__separator_type_about-project {
+  .main-section__title-separator_type_about-project {
     margin-bottom: 62px;
   }
 }
 
-.main-section-title__separator_type_about-me {
+.main-section__title-separator_type_about-me {
   margin-bottom: 68px;
 }
 @media (max-width: 669px) {
-  .main-section-title__separator_type_about-me {
+  .main-section__title-separator_type_about-me {
     margin-bottom: 61px;
   }
 }

@@ -10,6 +10,10 @@
   opacity: 0.8;
   cursor: pointer;
 }
+.button:focus-visible {
+	outline: #3456F3 solid;
+	border-radius: 2px;
+}
 @media (max-width: 669px) {
   .button {
     font-size: 10px;
@@ -69,6 +73,7 @@
 @media (max-width: 669px) {
   .button_type_profile-edit {
     font-size: 11px;
+		letter-spacing: 0.5px;
   }
 }
 
@@ -80,6 +85,7 @@
 @media (max-width: 669px) {
   .button_type_profile-signout {
     font-size: 11px;
+		letter-spacing: 0.5px;
   }
 }
 

@@ -1,26 +1,23 @@
 .profile {
+  position: relative;
   width: 396px;
   height: 100%;
   margin: 0 auto;
-  padding-top: 74px;
-  padding-bottom: 10%;
+  padding: 74px 0 10%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
   box-sizing: border-box;
 }
 @media (max-width: 999px) {
   .profile {
     width: 410px;
-    padding-top: 236px;
-    padding-bottom: 95px;
+    padding: 236px 0 495px;
   }
 }
 @media (max-width: 669px) {
   .profile {
-    margin: 0 30px;
-    padding-top: 71px;
-    padding-bottom: 40px;
+    width: 100%;
+    padding: 71px 30px 40px;
   }
 }
 
@@ -44,12 +41,9 @@
 }
 
 .profile__form {
-  /*height: 100%; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
-  /*padding-bottom: 16px; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
-  padding-bottom: 30px; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+  padding-bottom: 30px;
   display: flex;
   flex-direction: column;
-  /*justify-content: space-between; вариант верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
 }
 @media (max-width: 999px) {
   .profile__form {
@@ -60,12 +54,17 @@
 .profile__input-container-group {
   display: flex;
   flex-direction: column;
-  padding-bottom: 180px; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
-}
-.profile__input-container-group:last-of-type {
-  padding-bottom: 0; /*исключить для варианта верстки с размещением кнопок редактирования и выхода из аккаунта прибитых к низу страницы */
+  padding-bottom: 180px;
 }
 
+.profile__input-container-group:last-of-type {
+  padding-bottom: 0;
+}
+@media (max-width: 669px) {
+  .profile__input-container-group {
+    padding-bottom: 352px;
+  }
+}
 .profile__input-container {
   width: 100%;
   display: flex;
@@ -87,6 +86,10 @@
   color: #000;
   font-size: 11px;
   font-weight: 400;
+}
+.profile__input:focus-visible {
+	outline: #3456F3 solid;
+	border-radius: 2px;
 }
 .profile__input_value_user-name {
 }

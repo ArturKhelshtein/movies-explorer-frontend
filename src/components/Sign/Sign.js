@@ -21,7 +21,12 @@ function Sign({
           <LogoLink />
         </div>
         <h3 className="sign__title">{title}</h3>
-        <form className="sign__form" name="sign__form" onSubmit={handleSubmit}>
+        <form
+          className="sign__form"
+          name="sign__form"
+          onSubmit={handleSubmit}
+          // noValidate
+        >
           <div className="sign__form-input">{children}</div>
           <div className="sign__form-group">
             <Button type="submit-form" buttonName={buttonName} />

@@ -45,7 +45,7 @@ function Portfolio() {
             </div>
           </Link>
         </li>
-        <li className="portfolio__container-element">
+        {/* <li className="portfolio__container-element">
           <Link
             to="https://arturkhelshtein.github.io/contest"
             className="portfolio__link-container"
@@ -56,7 +56,7 @@ function Portfolio() {
               <IconLink />
             </div>
           </Link>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

@@ -4,7 +4,7 @@ import MainSection from '../MainSection/MainSection';
 
 function AboutProject() {
   return (
-    <MainSection title="О проекте" id='aboutProject' styleTitle='about-project'>
+    <MainSection title="О проекте" id='aboutProject' style={`about-project`}>
       <div className="about-project-article">
         <article className="about-project-article__article">
           <h3 className="about-project-article__header">

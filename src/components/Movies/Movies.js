@@ -8,10 +8,12 @@ import DownloadMore from '../DownloadMore/DownloadMore.js';
 function Movies({ moviesCards }) {
   return (
     <main className="movies">
-      <SearchForm />
-      {/* <Preloader /> */}
-      <MoviesCardList moviesCards={moviesCards} />
-      <DownloadMore />
+      <section className="movies__container">
+        <SearchForm />
+        {/* <Preloader /> */}
+        <MoviesCardList moviesCards={moviesCards} />
+        <DownloadMore />
+      </section>
     </main>
   );
 }

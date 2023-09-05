@@ -1,0 +1,150 @@
+.sign {
+  width: 100%;
+  padding: 70px 0 70px;
+  box-sizing: border-box;
+}
+@media (max-width: 999px) {
+  .sign {
+    padding: 231px 0 70px;
+  }
+}
+@media (max-width: 669px) {
+  .sign {
+    padding: 56px 30px 30px;
+  }
+}
+
+.sign__container {
+  margin: 0 auto;
+  width: 396px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 669px) {
+  .sign__container {
+    width: 100%;
+  }
+}
+
+.sign__title {
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 42px;
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
+}
+@media (max-width: 669px) {
+  .sign__title {
+    padding-top: 50px;
+    padding-bottom: 82px;
+    font-size: 24px;
+    align-self: center;
+  }
+}
+
+.sign__form {
+  height: 412px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media (max-width: 669px) {
+  .sign__form {
+    height: 495px;
+  }
+}
+
+.sign__form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign__form-group {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 669px) {
+  .sign__form-group {
+    align-items: center;
+  }
+}
+
+.sign__link-container {
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.sign__link-description {
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 14px;
+  font-weight: 400;
+}
+@media (max-width: 669px) {
+  .sign__link-description {
+    font-size: 12px;
+  }
+}
+
+.sign__link {
+  color: #3456f3;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.sign__link:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+@media (max-width: 669px) {
+  .sign__link {
+    font-size: 12px;
+  }
+}
+
+.sign__input-label {
+  margin-bottom: 5px;
+  color: #a0a0a0;
+  font-size: 10px;
+  font-weight: 400;
+}
+.sign__input {
+  margin-bottom: 24px;
+  width: 100%;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #e8e8e8;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+}
+.sign__input:focus {
+  outline: none;
+  border-color: #3456f3;
+}
+.sign__input:last-of-type {
+  margin-bottom: 6px;
+}
+.sign__input_value_name {
+}
+.sign__input_value_email {
+}
+
+.sign__input_value_password {
+}
+.sign__input_error {
+  color: #ee3465;
+}
+.sign__error {
+  color: #ee3465;
+  color: #ee3465;
+  font-size: 10px;
+  font-weight: 400;
+}

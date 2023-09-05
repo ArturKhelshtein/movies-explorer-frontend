@@ -1,0 +1,14 @@
+.logo {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  opacity: 1;
+}
+.logo:focus-visible {
+	outline: #3456F3 solid;
+	border-radius: 2px;
+}
+.logo:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

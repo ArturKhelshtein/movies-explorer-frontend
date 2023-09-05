@@ -1,0 +1,116 @@
+.button {
+  color: #000;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+}
+.button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.button:focus-visible {
+	outline: #3456F3 solid;
+	border-radius: 2px;
+}
+@media (max-width: 669px) {
+  .button {
+    font-size: 10px;
+  }
+}
+
+.button_type_account {
+  padding: 8px 12px;
+  width: 100px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid #000;
+  border-color: #aaaaaa;
+  border-radius: 50px;
+}
+@media (max-width: 999px) {
+  .button_type_account {
+    margin-bottom: 90px;
+  }
+}
+
+.button_type_sign-up {
+}
+
+.button_type_sign-in {
+  padding: 8px 20px;
+  background-color: #3456f3;
+  border-radius: 3px;
+  color: #fff;
+}
+@media (max-width: 669px) {
+  .button_type_sign-in {
+    padding: 8px 12px;
+  }
+}
+
+.button_type_download-more {
+  padding: 12px 150px;
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  font-weight: 500;
+}
+@media (max-width: 669px) {
+  .button_type_download-more {
+    padding: 12px 110px;
+  }
+}
+
+.button_type_profile-edit {
+  font-size: 13px;
+}
+@media (max-width: 669px) {
+  .button_type_profile-edit {
+    font-size: 11px;
+		letter-spacing: 0.5px;
+  }
+}
+
+.button_type_profile-signout {
+  color: #ee3465;
+  font-size: 13px;
+  font-weight: 500;
+}
+@media (max-width: 669px) {
+  .button_type_profile-signout {
+    font-size: 11px;
+		letter-spacing: 0.5px;
+  }
+}
+
+.button_type_submit-form {
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 15px;
+  background-color: #3456f3;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+@media (max-width: 669px) {
+  .button_type_submit-form {
+    font-size: 12px;
+  }
+}
+
+.button_type_link {
+  color: #3456f3;
+  font-size: 14px;
+}
+@media (max-width: 669px) {
+  .button_type_link {
+    font-size: 12px;
+  }
+}

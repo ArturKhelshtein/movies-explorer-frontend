@@ -1,0 +1,28 @@
+.header {
+}
+
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 70px;
+  height: 74px;
+  position: relative; /*необходимо для бургер меню*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 45px;
+  background-color: transparent;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+@media (max-width: 999px) {
+  .header__container {
+    padding: 0 30px;
+  }
+}
+@media (max-width: 669px) {
+  .header__container {
+    padding: 0 14px;
+  }
+}

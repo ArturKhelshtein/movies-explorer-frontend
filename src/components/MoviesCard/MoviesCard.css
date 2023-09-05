@@ -1,0 +1,120 @@
+.movies-card {
+  margin: 0;
+  display: grid;
+  grid-template-areas:
+    "img"
+    "about";
+  grid-template-rows: 151px 67px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
+}
+@media (max-width: 999px) {
+  .movies-card {
+    grid-template-rows: 190px 67px;
+  }
+}
+@media (max-width: 765px) {
+  .movies-card {
+    grid-template-rows: 168px 67px;
+  }
+}
+
+.movies-card__img {
+  width: 100%;
+  height: 100%;
+  grid-area: img;
+  object-position: center;
+  object-fit: cover;
+  aspect-ratio: 1.8 / 1;
+}
+
+.movies-card__about-container {
+  grid-area: about;
+  padding: 14px 12px;
+  display: grid;
+  grid-template-areas:
+    "name save-button"
+    "duration null";
+  grid-template-columns: 1fr 16px;
+  row-gap: 10px;
+}
+
+.movies-card__name {
+  grid-area: name;
+  margin: 0;
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+}
+.movies-card__duration {
+  grid-area: duration;
+  color: #a0a0a0;
+  font-size: 11px;
+  font-weight: 400;
+}
+.movies-card__icon-button-save {
+  grid-area: save-button;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 50%;
+  transition: background 0.25s ease;
+  cursor: pointer;
+}
+.movies-card__icon-button-save::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #f4f4f4;
+  border-radius: 50%;
+}
+
+.movies-card__icon-button-save_active {
+}
+.movies-card__icon-button-save_active::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #2be080;
+  border-radius: 50%;
+}
+
+.movies-card__icon-button-delete {
+  position: relative;
+  background: transparent;
+  width: 16px;
+  height: 16px;
+  border: none;
+	cursor: pointer;
+}
+.movies-card__icon-button-delete::before,
+.movies-card__icon-button-delete::after {
+  content: "";
+  position: absolute;
+  top: 4.5px;
+  width: 2px;
+  height: 9px;
+  display: block;
+  background: #000;
+}
+
+.movies-card__icon-button-delete::before {
+  transform: rotate(45deg);
+}
+
+.movies-card__icon-button-delete::after {
+  transform: rotate(-45deg);
+}

@@ -1,0 +1,15 @@
+.download-more {
+  padding: 0 70px 80px;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 999px) {
+  .download-more {
+    padding: 50px 30px 80px;
+  }
+}
+@media (max-width: 669px) {
+  .download-more {
+    padding: 50px 10px 80px;
+  }
+}

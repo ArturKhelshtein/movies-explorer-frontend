@@ -1,0 +1,65 @@
+.no-found {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "error"
+    "button";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 77px;
+  justify-items: center;
+  align-items: center;
+  background-color: #fff;
+  box-sizing: border-box;
+  z-index: 99;
+}
+
+.no-found__container {
+}
+
+.no-found__error {
+  grid-area: error;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-found__error-title {
+  margin: 0;
+  padding-bottom: 8px;
+  color: #000;
+  font-size: 140px;
+  font-weight: 400;
+  text-align: center;
+}
+@media (max-width: 669px) {
+  .no-found__error-title {
+    padding-bottom: 12px;
+    font-size: 80px;
+  }
+}
+
+.no-found__error-paragraph {
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+}
+@media (max-width: 669px) {
+  .no-found__error-paragraph {
+    font-size: 12px;
+  }
+}
+
+.no-found__button {
+  grid-area: button;
+  padding-bottom: 60px;
+}
+@media (max-width: 669px) {
+  .no-found__button {
+    padding-bottom: 30px;
+  }
+}

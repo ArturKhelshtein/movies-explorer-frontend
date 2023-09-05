@@ -1,0 +1,133 @@
+.profile {
+  position: relative;
+  width: 396px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 74px 0 10%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+@media (max-width: 999px) {
+  .profile {
+    width: 410px;
+    padding: 236px 0 495px;
+  }
+}
+@media (max-width: 669px) {
+  .profile {
+    width: 100%;
+    padding: 71px 30px 40px;
+  }
+}
+
+.profile__section {
+}
+
+.profile__header {
+  margin: 0;
+  padding-bottom: 115px;
+  color: #000;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+@media (max-width: 999px) {
+  .profile__header {
+    padding-bottom: 88px;
+  }
+}
+@media (max-width: 669px) {
+  .profile__header {
+    padding-bottom: 71px;
+  }
+}
+
+.profile__form {
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 999px) {
+  .profile__form {
+    padding-bottom: 20px;
+  }
+}
+
+.profile__input-container-group {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 180px;
+}
+
+.profile__input-container-group:last-of-type {
+  padding-bottom: 0;
+}
+@media (max-width: 669px) {
+  .profile__input-container-group {
+    padding-bottom: 352px;
+  }
+}
+.profile__input-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__input-label {
+  width: 140px;
+  text-align: start;
+  color: #000;
+  font-size: 11px;
+  font-weight: 500;
+}
+.profile__input {
+  width: 100%;
+  text-align: end;
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-size: 11px;
+  font-weight: 400;
+}
+.profile__input:focus-visible {
+  outline: #3456f3 solid;
+  border-radius: 2px;
+}
+.profile__input_value_user-name {
+}
+.profile__input_value_email {
+}
+.profile__separator {
+  margin: 5px 0;
+  width: 100%;
+  height: 1px;
+  background-color: #e8e8e8;
+}
+
+.profile__error {
+  padding-bottom: 4px;
+  color: #ee3465;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.profile__button-save {
+  display: none;
+}
+
+.profile__button-save_show {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.profile__button-edit {
+  display: none;
+}
+
+.profile__button-edit_show {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

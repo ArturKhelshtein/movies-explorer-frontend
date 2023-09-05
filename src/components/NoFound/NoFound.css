@@ -17,6 +17,9 @@
   z-index: 99;
 }
 
+.no-found__container {
+}
+
 .no-found__error {
   grid-area: error;
   display: flex;

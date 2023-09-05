@@ -21,6 +21,9 @@
   }
 }
 
+.profile__section {
+}
+
 .profile__header {
   margin: 0;
   padding-bottom: 115px;
@@ -88,8 +91,8 @@
   font-weight: 400;
 }
 .profile__input:focus-visible {
-	outline: #3456F3 solid;
-	border-radius: 2px;
+  outline: #3456f3 solid;
+  border-radius: 2px;
 }
 .profile__input_value_user-name {
 }

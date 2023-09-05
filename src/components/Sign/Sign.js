@@ -16,7 +16,7 @@ function Sign({
 }) {
   return (
     <main className="sign">
-      <div className="sign__container">
+      <section className="sign__container">
         <div className="sign__form-group">
           <LogoLink />
         </div>
@@ -38,7 +38,7 @@ function Sign({
             </div>
           </div>
         </form>
-      </div>
+      </section>
     </main>
   );
 }

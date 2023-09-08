@@ -1,10 +1,34 @@
+import React from 'react';
+
 import './SearchForm.css';
 
 import IconSearch from '../IconSearch/IconSearch.js';
 import IconSearchButton from '../IconSearchButton/IconSearchButton.js';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import moviesApi from '../../utils/MoviesApi';
+import { async } from 'q';
 
-function SearchForm() {
+function SearchForm({ setMoviesCards, setLoading }) {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
+
+  function handleSubmitSearch(event) {
+    event.preventDefault();
+    if (event.target[0].value === '') {
+      event.target[0].placeholder = 'Нужно ввести ключевое слово';
+      setIsSearchQueryError(true);
+      return;
+    }
+    setLoading(true);
+    moviesApi
+      .search()
+      .then((response) => setMoviesCards(response))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+
+    console.log(event);
+  }
+
   return (
     <div className="search-form">
       <div className="search-form__search-container">
@@ -13,14 +37,17 @@ function SearchForm() {
         </div>
         <form
           className="search-form__form"
-          onSubmit={() => console.log('запрос на поиск отправлен')}
+          onSubmit={handleSubmitSearch}
+          noValidate
         >
           <input
-            className="search-form__input"
+            className={`search-form__input ${
+              isSearchQueryError ? 'search-form__input_error' : ''
+            }`}
             type="text"
             placeholder="Фильм"
-            value=""
-            onChange="заглушка"
+            value={searchQuery || ''}
+            onChange={(event) => setSearchQuery(event.target.value)}
             required
           />
           <div className="search-form__search-button-container">

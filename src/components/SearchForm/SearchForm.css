@@ -87,6 +87,10 @@
   }
 }
 
+.search-form__input_error::placeholder {
+  color: #ee3465;
+}
+
 .search-form__search-button-container {
   width: 34px;
   height: 34px;

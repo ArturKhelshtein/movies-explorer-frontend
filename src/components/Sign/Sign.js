@@ -25,7 +25,7 @@ function Sign({
           className="sign__form"
           name="sign__form"
           onSubmit={handleSubmit}
-          // noValidate
+          noValidate
         >
           <div className="sign__form-input">{children}</div>
           <div className="sign__form-group">

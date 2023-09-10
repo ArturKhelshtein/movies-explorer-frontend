@@ -13,20 +13,13 @@ import Footer from './Footer/Footer.js';
 import Register from './Register/Register.js';
 import Login from './Login/Login.js';
 import NoFound from './NoFound/NoFound.js';
+import mainApi from '../utils/MainApi';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [isLogged, setLogged] = React.useState(true);
-  const [currentUser, setCurrentUser] = React.useState({
-    dataUser: {
-      _id: '64e60efa68ed58d7c156da14',
-      email: 'test@test.ru',
-      name: 'test',
-    },
-  });
-  const [isLoading, setLoading] = React.useState(null);
-
-  const [moviesCards, setMoviesCards] = React.useState([]);
-  const [savedMoviesCards, setSavedMoviesCards] = React.useState([]);
+  // состояния приложения
+  const [isLogged, setLogged] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -43,6 +36,7 @@ function App() {
                 linkDescription="Уже зарегистрированы?"
                 linkText="Войти"
                 linkTo="/signin"
+                setLogged={setLogged}
               />
             }
           />
@@ -60,22 +54,28 @@ function App() {
             }
           />
           <Route path="/" element={<Main />} />
+
           <Route
             path="/movies"
-            element={
-              <Movies
-                moviesCards={moviesCards}
-                setMoviesCards={setMoviesCards}
-                isLoading={isLoading}
-                setLoading={setLoading}
-              />
-            }
+            element={<ProtectedRoute isLogged={isLogged} elevent={Movies} />}
           />
           <Route
             path="/saved-movies"
-            element={<SavedMovies moviesCards={moviesCards} />}
+            element={
+              <ProtectedRoute isLogged={isLogged} elevent={SavedMovies} />
+            }
           />
-          <Route path="/profile" element={<Profile setLogged={setLogged} />} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                isLogged={Profile}
+                elevent={SavedMovies}
+                setLogged={setLogged}
+              />
+            }
+          />
           <Route path="/*" element={<NoFound />} />
         </Routes>
         <Footer />

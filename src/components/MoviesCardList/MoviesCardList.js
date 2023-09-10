@@ -5,12 +5,12 @@ import './MoviesCardList.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import MoviesCard from '../MoviesCard/MoviesCard.js';
 
-function MoviesCardList({ moviesCards }) {
+function MoviesCardList({ moviesCardList }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [moviesCardsOwner, setMoviesCardsOwner] = React.useState();
 
   function isSaveMovie(card) {
-    console.log('тоггл для состояние true/false. заглушка');
+    // console.log('тоггл для состояние true/false. заглушка');
     // return card.owner.some((owner) => owner._id === currentUser.dataUser._id);
   }
 
@@ -22,7 +22,7 @@ function MoviesCardList({ moviesCards }) {
 
   return (
     <div className="movies-card-list">
-      {moviesCards.map((card) => (
+      {moviesCardList.map((card) => (
         <MoviesCard
           key={card._id}
           card={card}

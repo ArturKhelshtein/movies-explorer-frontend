@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ isLoggedIn, element: Component, ...props }) => {
-  return isLoggedIn ? (
+const ProtectedRoute = ({ isLogged, element: Component, ...props }) => {
+  return isLogged ? (
     <Component {...props} />
   ) : (
-    <Navigate to="/signup" replace />
+    <Navigate to="/" replace />
   );
 };
 

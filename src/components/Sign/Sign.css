@@ -143,8 +143,13 @@
   color: #ee3465;
 }
 .sign__error {
+  display: block;
   color: #ee3465;
   color: #ee3465;
   font-size: 10px;
   font-weight: 400;
+}
+
+.sign__error_false {
+  display: none;
 }

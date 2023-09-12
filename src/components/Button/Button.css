@@ -11,8 +11,8 @@
   cursor: pointer;
 }
 .button:focus-visible {
-	outline: #3456F3 solid;
-	border-radius: 2px;
+  outline: #3456f3 solid;
+  border-radius: 2px;
 }
 @media (max-width: 669px) {
   .button {
@@ -73,7 +73,7 @@
 @media (max-width: 669px) {
   .button_type_profile-edit {
     font-size: 11px;
-		letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -85,7 +85,7 @@
 @media (max-width: 669px) {
   .button_type_profile-signout {
     font-size: 11px;
-		letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -101,6 +101,24 @@
 }
 @media (max-width: 669px) {
   .button_type_submit-form {
+    font-size: 12px;
+  }
+}
+.button_type_submit-form-disable {
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 15px;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  color: #c2c2c2;
+  font-size: 14px;
+  font-weight: 500;
+}
+.button_type_submit-form-disable:hover {
+  cursor: default;
+}
+@media (max-width: 669px) {
+  .button_type_submit-form-disable {
     font-size: 12px;
   }
 }

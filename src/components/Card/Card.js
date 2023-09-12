@@ -1,22 +1,22 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import './MoviesCard.css';
+import './Card.css';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
-function MoviesCard({ card, saveMovie, isSaveMovie }) {
+function Card({ card, saveMovie, isSaveMovie, deleteMovie }) {
   const location = useLocation();
-  const currentUser = React.useContext(CurrentUserContext);
-  // const isOwner = card.owner._id === currentUser.dataUser._id;
   const isSave = isSaveMovie(card);
 
   function handleClickSave() {
+    console.log(isSave)
     saveMovie(card);
   }
 
   function handleClickDelete() {
-    saveMovie(card);
+    deleteMovie(card);
   }
 
   function convertMinuteToTime(mins) {
@@ -29,7 +29,7 @@ function MoviesCard({ card, saveMovie, isSaveMovie }) {
     <article className="movies-card">
       <img
         className="movies-card__img"
-        src={card.image.formats.thumbnail.url}
+        src={`https://api.nomoreparties.co${card.image.url}`}
         alt={card.description}
         onClick={handleClickSave}
       ></img>
@@ -45,7 +45,7 @@ function MoviesCard({ card, saveMovie, isSaveMovie }) {
               className={`movies-card__icon-button-save ${
                 isSave ? 'movies-card__icon-button-save_active' : ''
               }`}
-              onClick={handleClickSave}
+              onClick={isSave ? handleClickDelete : handleClickSave}
               type="button"
               aria-label="Сохранить в избранное"
             ></button>
@@ -53,7 +53,7 @@ function MoviesCard({ card, saveMovie, isSaveMovie }) {
           {location.pathname === '/saved-movies' && (
             <button
               className="movies-card__icon-button-delete"
-              onClick={handleClickSave}
+              onClick={handleClickDelete}
               type="button"
               aria-label="Сохранить в избранное"
             ></button>
@@ -64,4 +64,4 @@ function MoviesCard({ card, saveMovie, isSaveMovie }) {
   );
 }
 
-export default MoviesCard;
+export default Card;

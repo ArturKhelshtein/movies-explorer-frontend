@@ -10,37 +10,36 @@ import moviesApi from '../../utils/MoviesApi';
 function SearchForm({
   windowSize,
   setWindowSize,
-  setLoading,
+  isLoading,
+  setIsLoading,
   gridColumns,
   gridRows,
   setAmmountShowMovieCards,
-  ammountShowMovieCards,
   updateCardCounters,
+  setFullCardList,
 }) {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
   const [filterShortMovies, setFilterShortMovies] = React.useState(true);
 
-  function handleSubmitSearch(event) {
+  async function handleSubmitSearch(event) {
     event.preventDefault();
-    setLoading(null);
+
+    // сброс ошибки, если ошибка была ранее
+    setIsLoading(null);
     setIsSearchQueryError(false);
     event.target[0].placeholder = 'Фильм';
+
+    // установка ошибки если не заполнено поле поиска
     if (event.target[0].value === '') {
       event.target[0].placeholder = 'Нужно ввести ключевое слово';
       setIsSearchQueryError(true);
       return;
     }
-    setLoading(true);
+
+    // корректный запрос
+    setIsLoading(true);
     addQueryToLocalStorage();
-    setWindowSize(window.innerWidth);
-    console.log(`ширина экрана ${windowSize}`);
-    updateCardCounters(windowSize);
-    console.log(`количество столбцов ${gridColumns}`);
-    console.log(`количество строк ${gridRows}`);
-    setAmmountShowMovieCards(gridColumns * gridRows);
-    console.log(`количество отображаемых карт ${ammountShowMovieCards}`);
-    return;
   }
 
   function addQueryToLocalStorage() {
@@ -48,16 +47,26 @@ function SearchForm({
       .search()
       .then((response) => {
         localStorage.setItem('dataMovies', JSON.stringify(response));
-        localStorage.setItem('query', searchQuery);
-        localStorage.setItem('filterShortMovies', filterShortMovies);
       })
+      .then(() =>
+        setFullCardList(JSON.parse(localStorage.getItem('dataMovies')))
+      )
       .catch(() =>
         console.error(
           'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
         )
       )
-      .finally(() => setLoading(false));
+      .finally(() => setIsLoading(false));
+    localStorage.setItem('query', searchQuery);
+    localStorage.setItem('filterShortMovies', filterShortMovies);
+    return;
   }
+
+  React.useEffect(() => {
+    setWindowSize(window.innerWidth);
+    updateCardCounters(windowSize);
+    setAmmountShowMovieCards(() => gridColumns * gridRows);
+  }, [isLoading]);
 
   return (
     <div className="search-form">

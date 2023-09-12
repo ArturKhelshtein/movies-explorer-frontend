@@ -17,19 +17,16 @@ function HeaderMenu() {
     navigate('/profile');
     setIsWrapped(true);
   }
-  function handleToggleWrappedBurger() {
-    return isWrapped === false ? setIsWrapped(true) : setIsWrapped(false);
-  }
 
   return (
     <>
-      <div className={`${!isWrapped ? 'header__overlay': ''}`}></div>
+      <div className={`${isWrapped ? '': 'header__overlay'}`}></div>
       <div
         className={`header__menu-container ${
-          !isWrapped ? 'header__menu-container_unwrapped' : ''
+          isWrapped ? '' : 'header__menu-container_unwrapped'
         }`}
       >
-        <HeaderNavigation />
+        <HeaderNavigation setIsWrapped={setIsWrapped}/>
         <Button
           type="account"
           buttonName="Аккаунт"
@@ -38,8 +35,8 @@ function HeaderMenu() {
         />
       </div>
       <HeaderBurger
-        handleToggleWrappedBurger={handleToggleWrappedBurger}
         isWrapped={isWrapped}
+        setIsWrapped={setIsWrapped}
       />
     </>
   );

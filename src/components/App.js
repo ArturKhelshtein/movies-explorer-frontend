@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
 
@@ -20,6 +20,47 @@ function App() {
   // состояния приложения
   const [isLogged, setLogged] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [savedMoviesList, setSavedMoviesList] = React.useState({});
+  const navigate = useNavigate();
+
+  function checkToken() {
+    mainApi
+      .getUserMe()
+      .then((data) => {
+        if (!data) {
+          return;
+        }
+        setCurrentUser(data.dataUser);
+        setLogged(true);
+        navigate('/');
+      })
+      .catch((error) => {
+        setLogged(false);
+        setCurrentUser({});
+        console.error(`Ошибка при проверке токена пользователя: ${error}`);
+      });
+  }
+
+  React.useEffect(() => {
+    checkToken();
+  }, []);
+
+  React.useEffect(() => {
+    if (isLogged) {
+      mainApi
+        .getAppInfo()
+        .then((result) => {
+          const [dataUser, dataMovies] = result;
+          setCurrentUser(dataUser.dataUser);
+          setSavedMoviesList(dataMovies.dataMovies);
+        })
+        .catch((error) =>
+          console.error(
+            `Ошибка при получении данных пользователя/начального списка карточек: ${error}`
+          )
+        );
+    }
+  }, [isLogged]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -50,6 +91,7 @@ function App() {
                 linkDescription="Ещё не&nbsp;зарегистрированы?"
                 linkText="Регистрация"
                 linkTo="/signup"
+                setLogged={setLogged}
               />
             }
           />
@@ -57,12 +99,24 @@ function App() {
 
           <Route
             path="/movies"
-            element={<ProtectedRoute isLogged={isLogged} elevent={Movies} />}
+            element={
+              <ProtectedRoute
+                isLogged={isLogged}
+                element={Movies}
+                savedMoviesList={savedMoviesList}
+                setSavedMoviesList={setSavedMoviesList}
+              />
+            }
           />
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute isLogged={isLogged} elevent={SavedMovies} />
+              <ProtectedRoute
+                isLogged={isLogged}
+                element={SavedMovies}
+                savedMoviesList={savedMoviesList}
+                setSavedMoviesList={setSavedMoviesList}
+              />
             }
           />
 
@@ -70,9 +124,10 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute
-                isLogged={Profile}
-                elevent={SavedMovies}
+                isLogged={isLogged}
+                element={Profile}
                 setLogged={setLogged}
+                setCurrentUser={setCurrentUser}
               />
             }
           />

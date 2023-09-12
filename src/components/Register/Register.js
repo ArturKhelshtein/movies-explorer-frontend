@@ -6,7 +6,6 @@ import Sign from '../Sign/Sign';
 import useForm from '../../hooks/useForm';
 
 function Register({
-  onSubmit,
   title,
   buttonName,
   linkDescription,
@@ -25,7 +24,7 @@ function Register({
 
   function handleRegisterSubmit({ name, email, password }) {
     mainApi
-      .signup({ name, email, password })
+      .signUp({ name, email, password })
       .then(() => {
         navigate('/', { replace: true });
         setLogged(true);

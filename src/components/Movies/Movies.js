@@ -4,15 +4,15 @@ import './Movies.css';
 
 import SearchForm from '../SearchForm/SearchForm.js';
 import Preloader from '../Preloader/Preloader.js';
-import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
+import CardList from '../CardList/CardList.js';
 import DownloadMore from '../DownloadMore/DownloadMore.js';
 
-function Movies() {
+function Movies({ savedMoviesList, setSavedMoviesList }) {
   const [windowSize, setWindowSize] = React.useState(window.innerWidth);
-  const [isLoading, setLoading] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(null);
 
-  const fullCardList = JSON.parse(localStorage.getItem('dataMovies'));
-  const [movieCardList, setMovieCardList] = React.useState([]);
+  const [fullCardList, setFullCardList] = React.useState([]);
+  const [showMovies, setShowMovies] = React.useState([]);
 
   const [gridColumns, setGridColumns] = React.useState(0);
   const [gridRows, setGridRows] = React.useState(0);
@@ -22,9 +22,6 @@ function Movies() {
     React.useState(true);
 
   function handleDownloadMore() {
-    updateCardCounters(windowSize);
-    console.log(`количество перед нажатием ${ammountShowMovieCards}`);
-    // debugger;
     let complementToFull;
     if ((ammountShowMovieCards + additionalDownloads) % gridColumns === 0) {
       complementToFull = 0;
@@ -37,7 +34,6 @@ function Movies() {
     setAmmountShowMovieCards(
       ammountShowMovieCards + additionalDownloads + complementToFull
     );
-    console.log(`количество после нажатия ${ammountShowMovieCards}`);
     return;
   }
 
@@ -62,6 +58,29 @@ function Movies() {
     return;
   }
 
+  // слушатель ширины экрана
+  (function () {
+    window.addEventListener('resize', resizeThrottler, false);
+
+    let resizeTimeout;
+    function resizeThrottler() {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function () {
+          resizeTimeout = null;
+          actualResizeHandler();
+        }, 1000);
+      }
+    }
+
+    function actualResizeHandler() {
+      setWindowSize(window.innerWidth);
+    }
+  })();
+
+  React.useEffect(() => {
+    updateCardCounters(windowSize);
+  }, []);
+
   React.useEffect(() => {
     if (isLoading === null || isLoading === true) {
       setVisibleButtonDownloads(true);
@@ -70,30 +89,9 @@ function Movies() {
     if (ammountShowMovieCards >= fullCardList.length) {
       setVisibleButtonDownloads(false);
     }
-
-    // слушатель ширины экрана
-    (function () {
-      window.addEventListener('resize', resizeThrottler, false);
-
-      let resizeTimeout;
-      function resizeThrottler() {
-        if (!resizeTimeout) {
-          resizeTimeout = setTimeout(function () {
-            resizeTimeout = null;
-            actualResizeHandler();
-          }, 1000);
-        }
-      }
-
-      function actualResizeHandler() {
-        setWindowSize(window.innerWidth);
-      }
-    })();
-
-    console.log(windowSize);
-
-    setMovieCardList(fullCardList.slice(0, ammountShowMovieCards));
-  }, [isLoading, ammountShowMovieCards, windowSize]);
+    updateCardCounters(windowSize);
+    setShowMovies(fullCardList.slice(0, ammountShowMovieCards));
+  }, [isLoading, ammountShowMovieCards, fullCardList, windowSize, savedMoviesList]);
 
   return (
     <main className="movies">
@@ -101,12 +99,14 @@ function Movies() {
         <SearchForm
           windowSize={windowSize}
           setWindowSize={setWindowSize}
-          setLoading={setLoading}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
           gridColumns={gridColumns}
           gridRows={gridRows}
           setAmmountShowMovieCards={setAmmountShowMovieCards}
           ammountShowMovieCards={ammountShowMovieCards}
           updateCardCounters={updateCardCounters}
+          setFullCardList={setFullCardList}
         />
         {isLoading === null ? (
           <></>
@@ -114,7 +114,11 @@ function Movies() {
           <Preloader />
         ) : (
           <>
-            <MoviesCardList moviesCardList={movieCardList} />
+            <CardList
+              showMovies={showMovies}
+              savedMoviesList={savedMoviesList}
+              setSavedMoviesList={setSavedMoviesList}
+            />
             <DownloadMore
               isVisibleButtonDownloads={isVisibleButtonDownloads}
               handleDownloadMore={handleDownloadMore}

@@ -90,6 +90,13 @@
   font-size: 11px;
   font-weight: 400;
 }
+.profile__input:read-only {
+  color: #c2c2c2;
+}
+.profile__input:read-only:focus-visible {
+  outline: none;
+  border: none;
+}
 .profile__input:focus-visible {
   outline: #3456f3 solid;
   border-radius: 2px;
@@ -111,6 +118,10 @@
   text-align: center;
   font-size: 11px;
   font-weight: 400;
+}
+
+.profile__error_false {
+  display: none;
 }
 
 .profile__button-save {

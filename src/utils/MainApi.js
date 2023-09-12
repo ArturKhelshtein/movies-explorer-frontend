@@ -16,7 +16,7 @@ class MainApi {
     );
   }
 
-  signup({ email, password, name }) {
+  signUp({ email, password, name }) {
     return this._request(`/signup`, {
       method: 'POST',
       headers: this._headers,
@@ -28,10 +28,10 @@ class MainApi {
     });
   }
 
-  signin({ email, password }) {
+  signIn({ email, password }) {
     return this._request(`/signin`, {
-      method: 'POST',
       credentials: 'include',
+      method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         password,
@@ -40,26 +40,26 @@ class MainApi {
     });
   }
 
-  signout() {
+  signOut() {
     return this._request(`/signout`, {
-      method: 'GET',
       credentials: 'include',
+      method: 'GET',
       headers: this._headers,
     });
   }
 
   getUserMe() {
     return this._request(`/users/me`, {
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
     });
   }
 
   patchUserMe(email, name) {
     return this._request(`/users/me`, {
+      credentials: 'include',
       method: 'PATCH',
       headers: this._headers,
-      credentials: 'include',
       body: JSON.stringify({
         email: email,
         name: name,
@@ -69,12 +69,16 @@ class MainApi {
 
   getMovies() {
     return this._request(`/movies`, {
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
     });
   }
 
-  postMovies(
+  getAppInfo() {
+    return Promise.all([this.getUserMe(), this.getMovies()]);
+  }
+
+  postMovies({
     country,
     director,
     duration,
@@ -85,36 +89,40 @@ class MainApi {
     thumbnail,
     movieId,
     nameRU,
-    nameEN
-  ) {
+    nameEN,
+  }) {
     return this._request(`/movies`, {
-      headers: this._headers,
       credentials: 'include',
-      country: country,
-      director: director,
-      duration: duration,
-      year: year,
-      description: description,
-      image: image,
-      trailerLink: trailerLink,
-      thumbnail: thumbnail,
-      movieId: movieId,
-      nameRU: nameRU,
-      nameEN: nameEN,
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailerLink,
+        thumbnail,
+        movieId,
+        nameRU,
+        nameEN,
+      }),
     });
   }
 
   deleteMovies(id) {
     return this._request(`/movies/${id}`, {
+      credentials: 'include',
       method: 'DELETE',
       headers: this._headers,
-      credentials: 'include',
     });
   }
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.arturkhelshtein.nomoredomainsicu.ru',
+  baseUrl: 'http://localhost:3000',
+  // baseUrl: 'https://api.arturkhelshtein.nomoredomainsicu.ru',
   headers: {
     'Content-Type': 'application/json',
   },

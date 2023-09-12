@@ -23,24 +23,28 @@ function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
     return false;
   }
 
-  function handlerSaveMovie(card) {
+  function handlerSaveMovie(movie) {
     mainApi
       .postMovies({
-        country: card.country,
-        director: card.director,
-        duration: card.duration,
-        year: card.year,
-        description: card.description,
-        image: `https://api.nomoreparties.co${card.image.url}`,
-        trailerLink: card.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-        movieId: card.id,
-        nameRU: card.nameRU,
-        nameEN: card.nameEN,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
       })
-      .then((savedMovie) =>
-        setSavedMoviesList((state) => ({ ...state, savedMovie }))
-      )
+      .then((savedMovie) => {
+        setSavedMoviesList((s) => [...s, savedMovie]);
+      })
+      .then(() => mainApi.getMovies())
+      .then((dataMovies) => {
+        setSavedMoviesList(dataMovies.dataMovies);
+      })
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }
 
@@ -55,22 +59,23 @@ function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
     mainApi
       .deleteMovies(deleteMovie._id)
       .then(() =>
-        setSavedMoviesList((s) => s.filter((n) => n.movieId !== deleteMovie.movieId ))
+        setSavedMoviesList((s) =>
+          s.filter((n) => n.movieId !== deleteMovie.movieId)
+        )
       )
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }
 
   React.useEffect(() => {
-  }, [savedMoviesList])
-
-
+    console.log(savedMoviesList);
+  }, [savedMoviesList]);
 
   return (
     <div className="movies-card-list">
-      {showMovies.map((card) => (
+      {showMovies.map((movie) => (
         <Card
-          key={card.id}
-          card={card}
+          key={movie.id}
+          card={movie}
           saveMovie={handlerSaveMovie}
           isSaveMovie={isSaveMovie}
           deleteMovie={handlerDeleteMovie}

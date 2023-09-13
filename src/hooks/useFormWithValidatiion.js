@@ -13,7 +13,6 @@ export default function useFormWithValidation() {
     setValues({ ...values, [name]: value });
     if (input.name === 'email') {
       const test = regexEmail.test((value))
-      console.log(test)
       if (!test) {
         setErrors({ ...errors, [name]: 'Ошибка при вводе данных' });
         setIsValid(false);

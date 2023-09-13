@@ -31,9 +31,9 @@ function Login({
 
   function handleLoginSubmit(event) {
     event.preventDefault();
-    setSendRequest(true)
+    setSendRequest(true);
     const { email, password } = values;
-    setErrorText('')
+    setErrorText('');
 
     mainApi
       .signIn({ email, password })
@@ -45,7 +45,12 @@ function Login({
       .catch((error) => {
         setLogged(false);
         setErrorRequest(true);
-        setErrorText(ERRORTEXT_LOGIN)
+        debugger
+        if (error.status === 401) {
+          setErrorText(ERRORTEXT_LOGIN_WRONGTOKEN);
+          console.error(ERRORTEXT_LOGIN_WRONGTOKEN);
+        }
+        setErrorText(ERRORTEXT_LOGIN);
         console.error(ERRORTEXT_LOGIN);
       })
       .finally(() => setSendRequest(false));

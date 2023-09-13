@@ -22,7 +22,7 @@ function SearchForm({
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
   const [filterShortMovies, setFilterShortMovies] = React.useState(true);
 
-  async function handleSubmitSearch(event) {
+  function handleSubmitSearch(event) {
     event.preventDefault();
 
     // сброс ошибки, если ошибка была ранее
@@ -61,12 +61,6 @@ function SearchForm({
     localStorage.setItem('filterShortMovies', filterShortMovies);
     return;
   }
-
-  React.useEffect(() => {
-    setWindowSize(window.innerWidth);
-    updateMovieCounters(windowSize);
-    setAmmountShowMovies(() => gridColumns * gridRows);
-  }, [isLoading]);
 
   return (
     <div className="search-form">

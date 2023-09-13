@@ -9,7 +9,6 @@ import { ERRORTEXT_SERVERERROR } from '../../utils/errorText';
 
 function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [moviesCardsOwner, setCardsOwner] = React.useState();
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {
@@ -75,7 +74,7 @@ function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
       {showMovies.map((movie) => (
         <Card
           key={movie.id}
-          card={movie}
+          movie={movie}
           saveMovie={handlerSaveMovie}
           isSaveMovie={isSaveMovie}
           deleteMovie={handlerDeleteMovie}

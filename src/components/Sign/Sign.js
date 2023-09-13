@@ -13,6 +13,10 @@ function Sign({
   linkTo,
   handleSubmit,
   children,
+  isValid,
+  isSendRequest,
+  errorRequest,
+  errorText
 }) {
   return (
     <main className="sign">
@@ -29,7 +33,19 @@ function Sign({
         >
           <div className="sign__form-input">{children}</div>
           <div className="sign__form-group">
-            <Button type="submit-form" buttonName={buttonName} />
+            <span
+              className={`${
+                errorRequest ? 'sign__error' : 'sign__error_false'
+              }`}
+            >
+              {errorText}
+            </span>
+            <Button
+              type="submit-form"
+              buttonName={buttonName}
+              onSubmit={handleSubmit}
+              isDisabled={!isValid || isSendRequest}
+            />
             <div className="sign__link-container">
               <p className="sign__link-description">{linkDescription}</p>
               <Link to={linkTo} className="sign__link">

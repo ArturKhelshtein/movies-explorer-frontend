@@ -14,9 +14,9 @@ function SearchForm({
   setIsLoading,
   gridColumns,
   gridRows,
-  setAmmountShowMovieCards,
-  updateCardCounters,
-  setFullCardList,
+  setAmmountShowMovies,
+  updateMovieCounters,
+  setFullMovieList,
 }) {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
@@ -49,7 +49,7 @@ function SearchForm({
         localStorage.setItem('dataMovies', JSON.stringify(response));
       })
       .then(() =>
-        setFullCardList(JSON.parse(localStorage.getItem('dataMovies')))
+        setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')))
       )
       .catch(() =>
         console.error(
@@ -64,8 +64,8 @@ function SearchForm({
 
   React.useEffect(() => {
     setWindowSize(window.innerWidth);
-    updateCardCounters(windowSize);
-    setAmmountShowMovieCards(() => gridColumns * gridRows);
+    updateMovieCounters(windowSize);
+    setAmmountShowMovies(() => gridColumns * gridRows);
   }, [isLoading]);
 
   return (

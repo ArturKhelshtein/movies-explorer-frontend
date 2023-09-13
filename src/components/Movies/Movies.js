@@ -11,33 +11,33 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   const [windowSize, setWindowSize] = React.useState(window.innerWidth);
   const [isLoading, setIsLoading] = React.useState(null);
 
-  const [fullCardList, setFullCardList] = React.useState([]);
+  const [fullMovieList, setFullMovieList] = React.useState([]);
+  const [findMoviesList, setFindMoviesList] = React.useState([]);
   const [showMovies, setShowMovies] = React.useState([]);
 
   const [gridColumns, setGridColumns] = React.useState(0);
   const [gridRows, setGridRows] = React.useState(0);
-  const [ammountShowMovieCards, setAmmountShowMovieCards] = React.useState(0);
+  const [ammountShowMovies, setAmmountShowMovies] = React.useState(0);
   const [additionalDownloads, setAdditionalDownloads] = React.useState(0);
   const [isVisibleButtonDownloads, setVisibleButtonDownloads] =
     React.useState(true);
 
   function handleDownloadMore() {
     let complementToFull;
-    if ((ammountShowMovieCards + additionalDownloads) % gridColumns === 0) {
+    if ((ammountShowMovies + additionalDownloads) % gridColumns === 0) {
       complementToFull = 0;
     } else {
       complementToFull =
-        gridColumns -
-        ((ammountShowMovieCards + additionalDownloads) % gridColumns);
+        gridColumns - ((ammountShowMovies + additionalDownloads) % gridColumns);
     }
 
-    setAmmountShowMovieCards(
-      ammountShowMovieCards + additionalDownloads + complementToFull
+    setAmmountShowMovies(
+      ammountShowMovies + additionalDownloads + complementToFull
     );
     return;
   }
 
-  function updateCardCounters(width) {
+  function updateMovieCounters(width) {
     if (width > 1279) {
       setGridColumns(4);
       setGridRows(4);
@@ -78,7 +78,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   })();
 
   React.useEffect(() => {
-    updateCardCounters(windowSize);
+    updateMovieCounters(windowSize);
   }, []);
 
   React.useEffect(() => {
@@ -86,12 +86,18 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       setVisibleButtonDownloads(true);
       return;
     }
-    if (ammountShowMovieCards >= fullCardList.length) {
+    if (ammountShowMovies >= fullMovieList.length) {
       setVisibleButtonDownloads(false);
     }
-    updateCardCounters(windowSize);
-    setShowMovies(fullCardList.slice(0, ammountShowMovieCards));
-  }, [isLoading, ammountShowMovieCards, fullCardList, windowSize, savedMoviesList]);
+    updateMovieCounters(windowSize);
+    setShowMovies(fullMovieList.slice(0, ammountShowMovies));
+  }, [
+    isLoading,
+    ammountShowMovies,
+    fullMovieList,
+    windowSize,
+    savedMoviesList,
+  ]);
 
   return (
     <main className="movies">
@@ -103,10 +109,9 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
           setIsLoading={setIsLoading}
           gridColumns={gridColumns}
           gridRows={gridRows}
-          setAmmountShowMovieCards={setAmmountShowMovieCards}
-          ammountShowMovieCards={ammountShowMovieCards}
-          updateCardCounters={updateCardCounters}
-          setFullCardList={setFullCardList}
+          setAmmountShowMovies={setAmmountShowMovies}
+          updateMovieCounters={updateMovieCounters}
+          setFullMovieList={setFullMovieList}
         />
         {isLoading === null ? (
           <></>

@@ -3,18 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 import './Profile.css';
 
-import useForm from '../../hooks/useForm';
+import useFormWithValidation from '../../hooks/useFormWithValidatiion';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Button from '../Button/Button';
 import mainApi from '../../utils/MainApi';
-import { ERRORTEXT_PATCHUSER } from '../../utils/errorText';
+import { ERRORTEXT_PATCHUSER, ERRORTEXT_REGISTER_OCCUPIEDEMAIL } from '../../utils/errorText';
 
-function Profile({ setLogged, setCurrentUser }) {
+function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
   const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
   const [startEdit, setStartEdit] = React.useState(false);
   const [isChangedProfile, setIsCangedProfie] = React.useState(false);
-  const { values, handleChange, setValues } = useForm({});
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const [errorPatchUser, setErrorPatchUser] = React.useState(false);
 
   React.useEffect(() => {
@@ -27,13 +28,15 @@ function Profile({ setLogged, setCurrentUser }) {
       !(values.name === currentUser.name)
     ) {
       setIsCangedProfie(true);
+    } else {
+      setIsCangedProfie(false);
     }
-  }, [values]);
+  }, [values, setIsCangedProfie]);
 
   React.useEffect(() => {
-    setValues(currentUser);
+    resetForm(currentUser, {}, true);
     setIsCangedProfie(false);
-  }, [currentUser]);
+  }, [currentUser, resetForm]);
 
   function handleStartEdit(event) {
     event.preventDefault();
@@ -42,21 +45,27 @@ function Profile({ setLogged, setCurrentUser }) {
 
   function handleSubmitForm(event) {
     event.preventDefault();
-    const email = values.email;
-    const name = values.name;
+    setSendRequest(true);
+    const { email, name } = values;
+    // const email = values.email
+    // const name = values.name;
+
     mainApi
       .patchUserMe(email, name)
       .then((data) => {
         setErrorPatchUser(false);
         setCurrentUser(data.dataUser);
+        setStartEdit(false);
       })
       .catch((error) => {
         setErrorPatchUser(true);
         console.error(error);
-      });
+      })
+      .finally(() => setSendRequest(false));
   }
 
   function handleSignOut() {
+    setSendRequest(true);
     mainApi
       .signOut()
       .then(() => {
@@ -66,7 +75,8 @@ function Profile({ setLogged, setCurrentUser }) {
       })
       .catch((error) => {
         console.error(`Ошибка при выходе пользователя: ${error}`);
-      });
+      })
+      .finally(() => setSendRequest(false));
   }
 
   return (
@@ -77,13 +87,13 @@ function Profile({ setLogged, setCurrentUser }) {
           className="profile__form"
           name="profile"
           onSubmit={handleSubmitForm}
-          //noValidate
+          noValidate
         >
           <div className="profile__input-container-group">
             <div className="profile__input-container">
               <p className="profile__input-label">Имя</p>
               <input
-                className="profile__input profile__input_value_user-name"
+                className={`profile__input profile__input_value_user-name ${errors.name ? 'profile__input_error' : ''}`}
                 type="text"
                 name="name"
                 placeholder="Имя"
@@ -96,10 +106,16 @@ function Profile({ setLogged, setCurrentUser }) {
               />
             </div>
             <div className="profile__separator"> </div>
+            <span
+              className="profile__validation"
+              name="profile-validation-name"
+            >
+              {errors.name || ' '}
+            </span>
             <div className="profile__input-container">
               <p className="profile__input-label">E-mail</p>
               <input
-                className="profile__input profile__input_value_email"
+                className={`profile__input profile__input_value_email ${errors.email ? 'profile__input_error' : ''}`}
                 type="email"
                 name="email"
                 placeholder="Почта"
@@ -109,6 +125,12 @@ function Profile({ setLogged, setCurrentUser }) {
                 required
               />
             </div>
+            <span
+              className="profile__validation"
+              name="profile-validation-email"
+            >
+              {errors.email || ' '}
+            </span>
           </div>
           <div className="profile__input-container-group">
             <div
@@ -124,11 +146,10 @@ function Profile({ setLogged, setCurrentUser }) {
                 {ERRORTEXT_PATCHUSER}
               </span>
               <Button
-                type={`${
-                  isChangedProfile ? 'submit-form' : 'submit-form-disable'
-                }`}
-                buttonName="Сохранить"
+                type={`submit-form`}
+                buttonName={`${isSendRequest ? 'Сохраняю...' : 'Сохранить'}`}
                 onClick={handleSubmitForm}
+                isDisabled={!isChangedProfile || !isValid || isSendRequest}
               />
             </div>
           </div>
@@ -145,8 +166,9 @@ function Profile({ setLogged, setCurrentUser }) {
           />
           <Button
             type="profile-signout"
-            buttonName="Выйти из аккаунта"
+            buttonName={`${isSendRequest ? 'Выходим...' : 'Выйти из аккаунта'}`}
             onClick={handleSignOut}
+            isDisabled={isSendRequest}
           />
         </div>
       </section>

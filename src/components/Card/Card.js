@@ -6,17 +6,17 @@ import './Card.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 
-function Card({ card, saveMovie, isSaveMovie, deleteMovie }) {
+function Card({ movie, saveMovie, isSaveMovie, deleteMovie }) {
   const location = useLocation();
-  const isSave = isSaveMovie(card);
+  const isSave = isSaveMovie(movie);
 
   function handleClickSave() {
     console.log(isSave)
-    saveMovie(card);
+    saveMovie(movie);
   }
 
   function handleClickDelete() {
-    deleteMovie(card);
+    deleteMovie(movie);
   }
 
   function convertMinuteToTime(mins) {
@@ -29,14 +29,14 @@ function Card({ card, saveMovie, isSaveMovie, deleteMovie }) {
     <article className="movies-card">
       <img
         className="movies-card__img"
-        src={`https://api.nomoreparties.co${card.image.url}`}
-        alt={card.description}
+        src={`https://api.nomoreparties.co${movie.image.url}`}
+        alt={movie.description}
         onClick={handleClickSave}
       ></img>
       <div className="movies-card__about-container">
-        <h4 className="movies-card__name">{card.nameRU}</h4>
+        <h4 className="movies-card__name">{movie.nameRU}</h4>
         <div className="movies-card__duration">
-          {convertMinuteToTime(card.duration)}
+          {convertMinuteToTime(movie.duration)}
         </div>
 
         <>

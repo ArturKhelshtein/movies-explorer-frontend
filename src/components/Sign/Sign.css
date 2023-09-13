@@ -114,7 +114,7 @@
   font-weight: 400;
 }
 .sign__input {
-  margin-bottom: 24px;
+  margin-bottom: 7px;
   width: 100%;
   padding-bottom: 10px;
   box-sizing: border-box;
@@ -129,9 +129,9 @@
   outline: none;
   border-color: #3456f3;
 }
-.sign__input:last-of-type {
+/* .sign__input:last-of-type {
   margin-bottom: 6px;
-}
+} */
 .sign__input_value_name {
 }
 .sign__input_value_email {
@@ -142,11 +142,21 @@
 .sign__input_error {
   color: #ee3465;
 }
-.sign__error {
-  display: block;
-  color: #ee3465;
+.sign__validation {
+  box-sizing: border-box;
+  padding-bottom: 2px;
+  width: 100%;
+  min-height: 16px;
   color: #ee3465;
   font-size: 10px;
+  font-weight: 400;
+}
+
+.sign__error {
+  padding-bottom: 20px;
+  color: #ee3465;
+  text-align: center;
+  font-size: 11px;
   font-weight: 400;
 }
 

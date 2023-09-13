@@ -20,7 +20,7 @@ function HeaderMenu() {
 
   return (
     <>
-      <div className={`${isWrapped ? '': 'header__overlay'}`}></div>
+      <div className={`header__overlay ${isWrapped ? '': 'header__overlay_visible'}`}></div>
       <div
         className={`header__menu-container ${
           isWrapped ? '' : 'header__menu-container_unwrapped'

@@ -37,9 +37,14 @@
 }
 
 .header__overlay {
+  display: none;
+}
+
+.header__overlay_visible {
 }
 @media (max-width: 999px) {
-  .header__overlay {
+  .header__overlay_visible {
+    display: block;
     position: fixed;
     top: 0;
     right: 0;
@@ -59,3 +64,4 @@
     opacity: 0.3;
   }
 }
+

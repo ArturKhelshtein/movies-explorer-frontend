@@ -18,6 +18,7 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 function App() {
   // состояния приложения
+  const [isSendRequest, setSendRequest] = React.useState(false);
   const [isLogged, setLogged] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMoviesList, setSavedMoviesList] = React.useState({});
@@ -71,9 +72,9 @@ function App() {
             path="/signup"
             element={
               <Register
-                onSubmit={() => console.log('onSubmit')}
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
                 title="Добро пожаловать!"
-                buttonName="Зарегестрироваться"
                 linkDescription="Уже зарегистрированы?"
                 linkText="Войти"
                 linkTo="/signin"
@@ -85,9 +86,10 @@ function App() {
             path="/signin"
             element={
               <Login
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
                 onSubmit={() => console.log('onSubmit')}
                 title="Рады видеть!"
-                buttonName="Войти"
                 linkDescription="Ещё не&nbsp;зарегистрированы?"
                 linkText="Регистрация"
                 linkTo="/signup"
@@ -126,6 +128,8 @@ function App() {
               <ProtectedRoute
                 isLogged={isLogged}
                 element={Profile}
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
                 setLogged={setLogged}
                 setCurrentUser={setCurrentUser}
               />

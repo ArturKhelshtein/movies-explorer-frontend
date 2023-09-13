@@ -2,10 +2,16 @@ import React from 'react';
 
 import './Button.css';
 
-function Button({ type, buttonName, onClick, icon='' }) {
+function Button({ type, buttonName, onClick, isDisabled = false, icon = '' }) {
   return (
-    <button className={`button button_type_${type}`} onClick={onClick} aria-label={buttonName}>
-      {icon}{buttonName}
+    <button
+      className={`button button_type_${type}`}
+      onClick={onClick}
+      aria-label={buttonName}
+      disabled={isDisabled}
+    >
+      {icon}
+      {buttonName}
     </button>
   );
 }

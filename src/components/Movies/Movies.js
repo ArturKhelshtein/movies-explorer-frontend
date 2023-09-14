@@ -2,40 +2,93 @@ import React from 'react';
 
 import './Movies.css';
 
+import moviesApi from '../../utils/MoviesApi';
 import SearchForm from '../SearchForm/SearchForm.js';
 import Preloader from '../Preloader/Preloader.js';
 import CardList from '../CardList/CardList.js';
 import DownloadMore from '../DownloadMore/DownloadMore.js';
 
 function Movies({ savedMoviesList, setSavedMoviesList }) {
+  // состояния количества отображаемых фильмов
   const [windowSize, setWindowSize] = React.useState(window.innerWidth);
-  const [isLoading, setIsLoading] = React.useState(null);
-
-  const [fullMovieList, setFullMovieList] = React.useState([]);
-  const [findMoviesList, setFindMoviesList] = React.useState([]);
-  const [showMovies, setShowMovies] = React.useState([]);
-
   const [gridColumns, setGridColumns] = React.useState(0);
   const [gridRows, setGridRows] = React.useState(0);
   const [ammountShowMovies, setAmmountShowMovies] = React.useState(0);
   const [additionalDownloads, setAdditionalDownloads] = React.useState(0);
+
+  const [isLoading, setIsLoading] = React.useState(null);
   const [isVisibleButtonDownloads, setVisibleButtonDownloads] =
     React.useState(true);
 
-  function handleDownloadMore() {
-    let complementToFull;
-    if ((ammountShowMovies + additionalDownloads) % gridColumns === 0) {
-      complementToFull = 0;
-    } else {
-      complementToFull =
-        gridColumns - ((ammountShowMovies + additionalDownloads) % gridColumns);
+  // состояния списков фильмов
+  const [fullMovieList, setFullMovieList] = React.useState([]);
+  const [findMoviesList, setFindMoviesList] = React.useState([]);
+  const [showMovieList, setShowMovieList] = React.useState([]);
+
+  // состояние поиска
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
+  const [filterShortMovies, setFilterShortMovies] = React.useState(true);
+
+  // первый рендеринг
+  React.useEffect(() => {
+    updateMovieCounters(windowSize);
+    setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
+    setSearchQuery(localStorage.getItem('query') || '');
+    setFilterShortMovies(JSON.parse(localStorage.getItem('filterShortMovies')));
+    if (localStorage.getItem('query') === null) {
+      setIsLoading(null);
+    }
+  }, []);
+
+  // рендеринг при показе фильмов и догрузке фильмов
+  React.useEffect(() => {
+    updateMovieCounters(windowSize);
+    setShowMovieList(findMoviesList.slice(0, ammountShowMovies));
+    if (isLoading === null || isLoading === true) {
+      return setVisibleButtonDownloads(false);
+    }
+    if (ammountShowMovies >= findMoviesList.length) {
+      return setVisibleButtonDownloads(false);
+    }
+    setVisibleButtonDownloads(true);
+  }, [
+    isLoading,
+    ammountShowMovies,
+    findMoviesList,
+    windowSize,
+    savedMoviesList,
+  ]);
+
+  console.log(`fullMovieList: ${fullMovieList}`);
+  console.log(`findMoviesList: ${findMoviesList}`);
+  console.log(`showMovieList: ${showMovieList}`);
+
+  // рендеринг при поиске
+  React.useEffect(() => {
+    setWindowSize(window.innerWidth);
+    updateMovieCounters(windowSize);
+    setAmmountShowMovies(() => gridColumns * gridRows);
+  }, [isLoading, searchQuery]);
+
+  // слушатель ширины экрана
+  (function () {
+    window.addEventListener('resize', resizeThrottler, false);
+
+    let resizeTimeout;
+    function resizeThrottler() {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function () {
+          resizeTimeout = null;
+          actualResizeHandler();
+        }, 1000);
+      }
     }
 
-    setAmmountShowMovies(
-      ammountShowMovies + additionalDownloads + complementToFull
-    );
-    return;
-  }
+    function actualResizeHandler() {
+      setWindowSize(window.innerWidth);
+    }
+  })();
 
   function updateMovieCounters(width) {
     if (width > 1279) {
@@ -58,60 +111,84 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     return;
   }
 
-  // слушатель ширины экрана
-  (function () {
-    window.addEventListener('resize', resizeThrottler, false);
-
-    let resizeTimeout;
-    function resizeThrottler() {
-      if (!resizeTimeout) {
-        resizeTimeout = setTimeout(function () {
-          resizeTimeout = null;
-          actualResizeHandler();
-        }, 1000);
-      }
+  function handleDownloadMore() {
+    let complementToFull;
+    if ((ammountShowMovies + additionalDownloads) % gridColumns === 0) {
+      complementToFull = 0;
+    } else {
+      complementToFull =
+        gridColumns - ((ammountShowMovies + additionalDownloads) % gridColumns);
     }
 
-    function actualResizeHandler() {
-      setWindowSize(window.innerWidth);
-    }
-  })();
+    setAmmountShowMovies(
+      ammountShowMovies + additionalDownloads + complementToFull
+    );
+    return;
+  }
 
-  React.useEffect(() => {
-    updateMovieCounters(windowSize);
-  }, []);
+  function handleSubmitSearch(event) {
+    event.preventDefault();
 
-  React.useEffect(() => {
-    if (isLoading === null || isLoading === true) {
-      setVisibleButtonDownloads(true);
+    // сброс ошибки, если ошибка была ранее
+    setIsLoading(false);
+    setIsSearchQueryError(false);
+    event.target[0].placeholder = 'Фильм';
+
+    // установка ошибки если не заполнено поле поиска
+    if (event.target[0].value === '') {
+      event.target[0].placeholder = 'Нужно ввести ключевое слово';
+      setIsSearchQueryError(true);
       return;
     }
-    if (ammountShowMovies >= fullMovieList.length) {
-      setVisibleButtonDownloads(false);
+
+    // корректный запрос
+    setIsLoading(true);
+    if (localStorage.getItem('dataMovies') === null) {
+      addReseponseBeatfilm();
     }
-    updateMovieCounters(windowSize);
-    setShowMovies(fullMovieList.slice(0, ammountShowMovies));
-  }, [
-    isLoading,
-    ammountShowMovies,
-    fullMovieList,
-    windowSize,
-    savedMoviesList,
-  ]);
+    addQueryToLocalStorage();
+    setFindMoviesList(
+      fullMovieList.filter(
+        (m) =>
+          m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
+          m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1
+      )
+    );
+    setIsLoading(false);
+  }
+
+  function addReseponseBeatfilm() {
+    moviesApi
+      .search()
+      .then((response) => {
+        localStorage.setItem('dataMovies', JSON.stringify(response));
+      })
+      .then(() =>
+        setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')))
+      )
+      .catch(() =>
+        console.error(
+          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+        )
+      );
+  }
+
+  function addQueryToLocalStorage() {
+    localStorage.setItem('query', searchQuery);
+    localStorage.setItem('filterShortMovies', filterShortMovies);
+    return;
+  }
 
   return (
     <main className="movies">
       <section className="movies__container" aria-label="movies">
         <SearchForm
-          windowSize={windowSize}
-          setWindowSize={setWindowSize}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          gridColumns={gridColumns}
-          gridRows={gridRows}
-          setAmmountShowMovies={setAmmountShowMovies}
-          updateMovieCounters={updateMovieCounters}
-          setFullMovieList={setFullMovieList}
+          handleSubmitSearch={handleSubmitSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          isSearchQueryError={isSearchQueryError}
+          filterShortMovies={filterShortMovies}
+          setFilterShortMovies={setFilterShortMovies}
         />
         {isLoading === null ? (
           <></>
@@ -120,7 +197,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
         ) : (
           <>
             <CardList
-              showMovies={showMovies}
+              showMovieList={showMovieList}
               savedMoviesList={savedMoviesList}
               setSavedMoviesList={setSavedMoviesList}
             />

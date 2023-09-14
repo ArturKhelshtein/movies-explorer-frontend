@@ -6,9 +6,13 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Card from '../Card/Card.js';
 import mainApi from '../../utils/MainApi';
 import { ERRORTEXT_SERVERERROR } from '../../utils/errorText';
+import { redirect } from 'react-router-dom';
 
-function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
+function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+  }, [savedMoviesList]);
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {
@@ -65,13 +69,9 @@ function CardList({ showMovies, savedMoviesList, setSavedMoviesList }) {
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }
 
-  React.useEffect(() => {
-    console.log(savedMoviesList);
-  }, [savedMoviesList]);
-
   return (
     <div className="movies-card-list">
-      {showMovies.map((movie) => (
+      {showMovieList.map((movie) => (
         <Card
           key={movie.id}
           movie={movie}

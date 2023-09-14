@@ -1,17 +1,14 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './Card.css';
-
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import mainApi from '../../utils/MainApi';
 
 function Card({ movie, saveMovie, isSaveMovie, deleteMovie }) {
   const location = useLocation();
   const isSave = isSaveMovie(movie);
 
   function handleClickSave() {
-    console.log(isSave)
+    console.log(isSave);
     saveMovie(movie);
   }
 
@@ -27,12 +24,13 @@ function Card({ movie, saveMovie, isSaveMovie, deleteMovie }) {
 
   return (
     <article className="movies-card">
-      <img
-        className="movies-card__img"
-        src={`https://api.nomoreparties.co${movie.image.url}`}
-        alt={movie.description}
-        onClick={handleClickSave}
-      ></img>
+      <Link to={movie.trailerLink} className="movies-card__img-link-container">
+        <img
+          className="movies-card__img"
+          src={`https://api.nomoreparties.co${movie.image.url}`}
+          alt={movie.description}
+        ></img>
+      </Link>
       <div className="movies-card__about-container">
         <h4 className="movies-card__name">{movie.nameRU}</h4>
         <div className="movies-card__duration">

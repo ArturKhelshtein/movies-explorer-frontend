@@ -26,7 +26,11 @@ function Card({ movie, saveMovie, isSaveMovie, deleteMovie }) {
       <Link to={movie.trailerLink} className="movies-card__img-link-container">
         <img
           className="movies-card__img"
-          src={`https://api.nomoreparties.co${movie.image.url}`}
+          src={
+            (location.pathname === '/movies' &&
+              `https://api.nomoreparties.co${movie.image.url}`) ||
+            (location.pathname === '/saved-movies' && movie.image)
+          }
           alt={movie.description}
         ></img>
       </Link>

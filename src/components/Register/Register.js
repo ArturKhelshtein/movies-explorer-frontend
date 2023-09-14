@@ -37,7 +37,7 @@ function Register({
     mainApi
       .signUp({ name, email, password })
       .then(() => {
-        navigate('/', { replace: true });
+        navigate('/movies', { replace: true });
         setLogged(true);
         setErrorRequest(false);
       })

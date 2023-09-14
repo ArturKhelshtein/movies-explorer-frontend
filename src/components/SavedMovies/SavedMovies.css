@@ -3,6 +3,16 @@
 }
 
 .saved-movies__container {
-	max-width: 1280px;
-	margin: 0 auto;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.saved-movies__no-found {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #a0a0a0;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 400;
 }

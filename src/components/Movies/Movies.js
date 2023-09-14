@@ -58,7 +58,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     findMoviesList,
     windowSize,
     savedMoviesList,
-    filterShortMovies
+    filterShortMovies,
   ]);
 
   // рендеринг при поиске
@@ -66,6 +66,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
+    addQueryToLocalStorage();
+    handlerFindMoviesList();
   }, [isLoading, searchQuery, filterShortMovies]);
 
   // слушатель ширины экрана
@@ -144,16 +146,19 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       addReseponseBeatfilm();
     }
     addQueryToLocalStorage();
+    handlerFindMoviesList();
+    setIsLoading(false);
+  }
+
+  function handlerFindMoviesList() {
     setFindMoviesList(
       fullMovieList.filter(
         (m) =>
-        (filterShortMovies ? m.duration < 40 : m)
-        &&
+          (filterShortMovies ? m.duration < 40 : m) &&
           (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
-          m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1 )
+            m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1)
       )
     );
-    setIsLoading(false);
   }
 
   function addReseponseBeatfilm() {
@@ -178,6 +183,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     return;
   }
 
+  console.log(showMovieList.length);
+
   return (
     <main className="movies">
       <section className="movies__container" aria-label="movies">
@@ -193,7 +200,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
           <></>
         ) : isLoading === true ? (
           <Preloader />
-        ) : (
+        ) : showMovieList.length > 0 ? (
           <>
             <CardList
               showMovieList={showMovieList}
@@ -205,6 +212,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
               handleDownloadMore={handleDownloadMore}
             />
           </>
+        ) : (
+          <div className="movies__no-found">Ничего не найдено</div>
         )}
       </section>
     </main>

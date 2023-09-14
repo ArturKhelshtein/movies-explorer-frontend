@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './CardList.css';
 
@@ -9,9 +10,9 @@ import { ERRORTEXT_SERVERERROR } from '../../utils/errorText';
 
 function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
+  const location = useLocation();
 
-  React.useEffect(() => {
-  }, [savedMoviesList]);
+  React.useEffect(() => {}, [savedMoviesList]);
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {
@@ -53,7 +54,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   function handlerDeleteMovie(movie) {
     const deleteMovie = savedMoviesList.find((i) => {
       if (i.owner._id === currentUser._id) {
-        return i.movieId === movie.id;
+        return i.movieId === (movie.id || movie.movieId);
       }
       return;
     });
@@ -72,7 +73,10 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
     <div className="movies-card-list">
       {showMovieList.map((movie) => (
         <Card
-          key={movie.id}
+          key={
+            (location.pathname === '/movies' && movie.id) ||
+            (location.pathname === '/saved-movies' && movie.movieId)
+          }
           movie={movie}
           saveMovie={handlerSaveMovie}
           isSaveMovie={isSaveMovie}

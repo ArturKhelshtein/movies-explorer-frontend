@@ -12,7 +12,7 @@ function FilterCheckbox({ filterShortMovies, setFilterShortMovies }) {
       <input
         className="filter-checkbox__checkbox"
         type="checkbox"
-        checked={filterShortMovies}
+        defaultChecked={filterShortMovies}
         onChange={toggleChecked}
       />
       <span className="filter-checkbox__icon" />

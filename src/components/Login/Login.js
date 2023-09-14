@@ -38,7 +38,7 @@ function Login({
     mainApi
       .signIn({ email, password })
       .then(() => {
-        navigate('/', { replace: true });
+        navigate('/movies', { replace: true });
         setLogged(true);
         setErrorRequest(false);
       })

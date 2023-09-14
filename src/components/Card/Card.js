@@ -8,7 +8,6 @@ function Card({ movie, saveMovie, isSaveMovie, deleteMovie }) {
   const isSave = isSaveMovie(movie);
 
   function handleClickSave() {
-    console.log(isSave);
     saveMovie(movie);
   }
 

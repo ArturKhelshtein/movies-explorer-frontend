@@ -44,7 +44,6 @@ function Register({
       .catch((error) => {
         setLogged(false);
         setErrorRequest(true);
-        console.log(error);
         if (error.status === 409) {
           setErrorText(ERRORTEXT_REGISTER_OCCUPIEDEMAIL);
           console.error(ERRORTEXT_REGISTER_OCCUPIEDEMAIL);

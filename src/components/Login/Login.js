@@ -45,7 +45,6 @@ function Login({
       .catch((error) => {
         setLogged(false);
         setErrorRequest(true);
-        debugger
         if (error.status === 401) {
           setErrorText(ERRORTEXT_LOGIN_WRONGTOKEN);
           console.error(ERRORTEXT_LOGIN_WRONGTOKEN);

@@ -88,7 +88,6 @@ function App() {
               <Login
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
-                onSubmit={() => console.log('onSubmit')}
                 title="Рады видеть!"
                 linkDescription="Ещё не&nbsp;зарегистрированы?"
                 linkText="Регистрация"

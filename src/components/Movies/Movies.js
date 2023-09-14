@@ -58,18 +58,15 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     findMoviesList,
     windowSize,
     savedMoviesList,
+    filterShortMovies
   ]);
-
-  console.log(`fullMovieList: ${fullMovieList}`);
-  console.log(`findMoviesList: ${findMoviesList}`);
-  console.log(`showMovieList: ${showMovieList}`);
 
   // рендеринг при поиске
   React.useEffect(() => {
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
-  }, [isLoading, searchQuery]);
+  }, [isLoading, searchQuery, filterShortMovies]);
 
   // слушатель ширины экрана
   (function () {
@@ -150,8 +147,10 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     setFindMoviesList(
       fullMovieList.filter(
         (m) =>
-          m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
-          m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1
+        (filterShortMovies ? m.duration < 40 : m)
+        &&
+          (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
+          m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1 )
       )
     );
     setIsLoading(false);

@@ -6,7 +6,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Card from '../Card/Card.js';
 import mainApi from '../../utils/MainApi';
 import { ERRORTEXT_SERVERERROR } from '../../utils/errorText';
-import { redirect } from 'react-router-dom';
 
 function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);

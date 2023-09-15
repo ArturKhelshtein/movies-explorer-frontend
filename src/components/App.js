@@ -24,14 +24,14 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const navigate = useNavigate();
 
-  console.log(savedMoviesList)
+  console.log(savedMoviesList);
 
   React.useEffect(() => {
     checkToken();
   }, []);
 
   async function checkToken() {
-    mainApi
+    return mainApi
       .getAppInfo()
       .then((result) => {
         const [dataUser, dataMovies] = result;

@@ -48,7 +48,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     if (isLoading === null || isLoading === true) {
       return setVisibleButtonDownloads(false);
     }
-    if (ammountShowMovies >= findMoviesList.length) {
+    if (ammountShowMovies >= findMoviesList?.length) {
       return setVisibleButtonDownloads(false);
     }
     setVisibleButtonDownloads(true);
@@ -147,8 +147,9 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     if (localStorage.getItem('dataMovies') === null) {
       await addReseponseBeatfilm();
     }
-    await addQueryToLocalStorage();
-    await handlerFindMoviesList();
+      addQueryToLocalStorage();
+      handlerFindMoviesList();
+
     setIsLoading(false);
   }
 
@@ -164,7 +165,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   }
 
   async function addReseponseBeatfilm() {
-    moviesApi
+    return moviesApi
       .search()
       .then((response) => {
         localStorage.setItem('dataMovies', JSON.stringify(response));

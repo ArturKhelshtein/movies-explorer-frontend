@@ -10,6 +10,8 @@
 .movies__no-found {
   width: 100%;
   height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
   text-align: center;
   color: #A0A0A0;
   text-align: center;

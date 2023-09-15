@@ -56,6 +56,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
       if (i.owner._id === currentUser._id) {
         return i.movieId === (movie.id || movie.movieId);
       }
+      // eslint-disable-next-line array-callback-return
       return;
     });
 
@@ -71,7 +72,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
 
   return (
     <div className="movies-card-list">
-      {showMovieList.map((movie) => (
+      {showMovieList?.map((movie) => (
         <Card
           key={
             (location.pathname === '/movies' && movie.id) ||

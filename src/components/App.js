@@ -24,6 +24,8 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = React.useState({});
   const navigate = useNavigate();
 
+  console.log(JSON.stringify(savedMoviesList))
+
   function checkToken() {
     mainApi
       .getUserMe()
@@ -44,14 +46,12 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  }, []);
-
-  React.useEffect(() => {
     if (isLogged) {
       mainApi
         .getAppInfo()
         .then((result) => {
           const [dataUser, dataMovies] = result;
+          console.log(dataMovies.dataMovies)
           setCurrentUser(dataUser.dataUser);
           setSavedMoviesList(dataMovies.dataMovies);
         })

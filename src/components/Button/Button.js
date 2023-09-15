@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './Button.css';
 
 function Button({ type, buttonName, onClick, isDisabled = false, icon = '' }) {

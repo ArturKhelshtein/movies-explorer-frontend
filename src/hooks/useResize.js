@@ -10,10 +10,10 @@ export function useResize() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return width
-  // return {
-  //   isScreenS: width <= SCREEN_M,
-  //   isScreenM: width > SCREEN_M && width <= SCREEN_L,
-  //   isScreenL: width > SCREEN_L && width <= SCREEN_XL,
-  //   isScreenXL: width > SCREEN_XL };
+  return {
+    width,
+    isScreenS: width <= SCREEN_M,
+    isScreenM: width > SCREEN_M && width <= SCREEN_L,
+    isScreenL: width > SCREEN_L && width <= SCREEN_XL,
+    isScreenXL: width > SCREEN_XL };
 }

@@ -6,7 +6,6 @@ import Sign from '../Sign/Sign';
 import useFormWithValidation from '../../hooks/useFormWithValidatiion';
 import {
   ERRORTEXT_LOGIN,
-  ERRORTEXT_LOGIN_INCORRECTTOKEN,
   ERRORTEXT_LOGIN_WRONGTOKEN,
 } from '../../utils/errorText';
 

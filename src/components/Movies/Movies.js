@@ -34,17 +34,17 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   React.useEffect(() => {
     updateMovieCounters(windowSize);
     setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
-    setSearchQuery(localStorage.getItem('query') || '');
-    setFilterShortMovies(JSON.parse(localStorage.getItem('filterShortMovies')));
+    // setSearchQuery(localStorage.getItem('query') || '');
+    // setFilterShortMovies(JSON.parse(localStorage.getItem('filterShortMovies')));
     if (localStorage.getItem('query') === null) {
-      setIsLoading(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
     updateMovieCounters(windowSize);
-    setShowMovieList(findMoviesList.slice(0, ammountShowMovies));
+    setShowMovieList(findMoviesList?.slice(0, ammountShowMovies));
     if (isLoading === null || isLoading === true) {
       return setVisibleButtonDownloads(false);
     }
@@ -58,7 +58,6 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     findMoviesList,
     windowSize,
     savedMoviesList,
-    filterShortMovies,
   ]);
 
   // рендеринг при поиске
@@ -66,9 +65,12 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
-    addQueryToLocalStorage();
-    handlerFindMoviesList();
-  }, [isLoading, searchQuery, filterShortMovies]);
+    if (localStorage.getItem('dataMovies') !== null) {
+      addQueryToLocalStorage();
+      handlerFindMoviesList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, filterShortMovies]);
 
   // слушатель ширины экрана
   (function () {
@@ -125,7 +127,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     return;
   }
 
-  function handleSubmitSearch(event) {
+  async function handleSubmitSearch(event) {
     event.preventDefault();
 
     // сброс ошибки, если ошибка была ранее
@@ -143,16 +145,16 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     // корректный запрос
     setIsLoading(true);
     if (localStorage.getItem('dataMovies') === null) {
-      addReseponseBeatfilm();
+      await addReseponseBeatfilm();
     }
-    addQueryToLocalStorage();
-    handlerFindMoviesList();
+    await addQueryToLocalStorage();
+    await handlerFindMoviesList();
     setIsLoading(false);
   }
 
   function handlerFindMoviesList() {
     setFindMoviesList(
-      fullMovieList.filter(
+      fullMovieList?.filter(
         (m) =>
           (filterShortMovies ? m.duration < 40 : m) &&
           (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
@@ -161,7 +163,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     );
   }
 
-  function addReseponseBeatfilm() {
+  async function addReseponseBeatfilm() {
     moviesApi
       .search()
       .then((response) => {
@@ -183,8 +185,6 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     return;
   }
 
-  console.log(showMovieList.length);
-
   return (
     <main className="movies">
       <section className="movies__container" aria-label="movies">
@@ -200,7 +200,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
           <></>
         ) : isLoading === true ? (
           <Preloader />
-        ) : showMovieList.length > 0 ? (
+        ) : showMovieList?.length > 0 ? (
           <>
             <CardList
               showMovieList={showMovieList}

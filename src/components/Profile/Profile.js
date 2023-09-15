@@ -7,7 +7,11 @@ import useFormWithValidation from '../../hooks/useFormWithValidatiion';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Button from '../Button/Button';
 import mainApi from '../../utils/MainApi';
-import { ERRORTEXT_PATCHUSER, ERRORTEXT_REGISTER_OCCUPIEDEMAIL } from '../../utils/errorText';
+import PopupSuccesedPatch from '../PopupSuccesedPatch/PopupSuccesedPatch';
+import {
+  ERRORTEXT_PATCHUSER,
+  ERRORTEXT_REGISTER_OCCUPIEDEMAIL,
+} from '../../utils/errorText';
 
 function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
   const navigate = useNavigate();
@@ -17,6 +21,8 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
   const { values, handleChange, resetForm, errors, isValid } =
     useFormWithValidation();
   const [errorPatchUser, setErrorPatchUser] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('');
+  const [isSuccesedPatch, setSuccesedPatch] = React.useState(false);
 
   React.useEffect(() => {
     setIsCangedProfie(false);
@@ -31,6 +37,8 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
     } else {
       setIsCangedProfie(false);
     }
+    setErrorPatchUser(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values, setIsCangedProfie]);
 
   React.useEffect(() => {
@@ -47,8 +55,6 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
     event.preventDefault();
     setSendRequest(true);
     const { email, name } = values;
-    // const email = values.email
-    // const name = values.name;
 
     mainApi
       .patchUserMe(email, name)
@@ -56,9 +62,15 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
         setErrorPatchUser(false);
         setCurrentUser(data.dataUser);
         setStartEdit(false);
+        setSuccesedPatch(true);
       })
       .catch((error) => {
         setErrorPatchUser(true);
+        setErrorText(
+          error.status === 409
+            ? ERRORTEXT_REGISTER_OCCUPIEDEMAIL
+            : ERRORTEXT_PATCHUSER
+        );
         console.error(error);
       })
       .finally(() => setSendRequest(false));
@@ -74,14 +86,26 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
         localStorage.clear();
       })
       .catch((error) => {
+        setErrorText(ERRORTEXT_PATCHUSER);
         console.error(`Ошибка при выходе пользователя: ${error}`);
       })
       .finally(() => setSendRequest(false));
+  }
+  function handlePopupClose() {
+    setSuccesedPatch(false);
   }
 
   return (
     <main className="profile">
       <section className="profile__section">
+        <PopupSuccesedPatch
+          name="succesed"
+          title="Информация обновлена"
+          isOpen={isSuccesedPatch}
+          buttonType="submit-form"
+          buttonName="OK"
+          onClose={handlePopupClose}
+        />
         <h2 className="profile__header">{`Привет, ${currentUser?.name}!`}</h2>
         <form
           className="profile__form"
@@ -93,7 +117,9 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
             <div className="profile__input-container">
               <p className="profile__input-label">Имя</p>
               <input
-                className={`profile__input profile__input_value_user-name ${errors.name ? 'profile__input_error' : ''}`}
+                className={`profile__input profile__input_value_user-name ${
+                  errors.name ? 'profile__input_error' : ''
+                }`}
                 type="text"
                 name="name"
                 placeholder="Имя"
@@ -115,7 +141,9 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
             <div className="profile__input-container">
               <p className="profile__input-label">E-mail</p>
               <input
-                className={`profile__input profile__input_value_email ${errors.email ? 'profile__input_error' : ''}`}
+                className={`profile__input profile__input_value_email ${
+                  errors.email ? 'profile__input_error' : ''
+                }`}
                 type="email"
                 name="email"
                 placeholder="Почта"
@@ -143,7 +171,7 @@ function Profile({ isSendRequest, setSendRequest, setLogged, setCurrentUser }) {
                   errorPatchUser ? 'profile__error' : 'profile__error_false'
                 }`}
               >
-                {ERRORTEXT_PATCHUSER}
+                {errorText}
               </span>
               <Button
                 type={`submit-form`}

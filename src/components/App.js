@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   async function checkToken() {
-    return mainApi
+    await mainApi
       .getAppInfo()
       .then((result) => {
         const [dataUser, dataMovies] = result;

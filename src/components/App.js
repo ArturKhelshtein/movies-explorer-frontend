@@ -19,49 +19,33 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 function App() {
   // состояния приложения
   const [isSendRequest, setSendRequest] = React.useState(false);
-  const [isLogged, setLogged] = React.useState(false);
+  const [isLogged, setLogged] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [savedMoviesList, setSavedMoviesList] = React.useState({});
+  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const navigate = useNavigate();
 
-  console.log(JSON.stringify(savedMoviesList))
+  console.log(savedMoviesList)
 
-  function checkToken() {
+  React.useEffect(() => {
+    checkToken();
+  }, []);
+
+  async function checkToken() {
     mainApi
-      .getUserMe()
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        setCurrentUser(data.dataUser);
+      .getAppInfo()
+      .then((result) => {
+        const [dataUser, dataMovies] = result;
+        setCurrentUser(dataUser.dataUser);
+        setSavedMoviesList(dataMovies.dataMovies);
         setLogged(true);
-        navigate('/');
       })
       .catch((error) => {
         setLogged(false);
         setCurrentUser({});
+        setSavedMoviesList({});
         console.error(`Ошибка при проверке токена пользователя: ${error}`);
       });
   }
-
-  React.useEffect(() => {
-    checkToken();
-    if (isLogged) {
-      mainApi
-        .getAppInfo()
-        .then((result) => {
-          const [dataUser, dataMovies] = result;
-          console.log(dataMovies.dataMovies)
-          setCurrentUser(dataUser.dataUser);
-          setSavedMoviesList(dataMovies.dataMovies);
-        })
-        .catch((error) =>
-          console.error(
-            `Ошибка при получении данных пользователя/начального списка карточек: ${error}`
-          )
-        );
-    }
-  }, [isLogged]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

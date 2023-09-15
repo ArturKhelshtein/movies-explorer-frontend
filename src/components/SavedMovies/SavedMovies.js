@@ -42,7 +42,7 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
 
   function handlerFindMoviesList() {
     setFindMoviesList(
-      savedMoviesList.filter(
+      savedMoviesList?.filter(
         (m) =>
           (filterShortMovies ? m.duration < 40 : m) &&
           (m.nameRU.toLowerCase().indexOf(searchQuery) > -1 ||

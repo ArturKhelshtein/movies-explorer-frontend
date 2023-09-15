@@ -52,7 +52,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   }
 
   function handlerDeleteMovie(movie) {
-    const deleteMovie = savedMoviesList.find((i) => {
+    const deleteMovie = savedMoviesList?.find((i) => {
       if (i.owner._id === currentUser._id) {
         return i.movieId === (movie.id || movie.movieId);
       }

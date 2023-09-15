@@ -30,14 +30,15 @@ function App() {
     checkToken();
   }, []);
 
-  async function checkToken() {
-    await mainApi
+   function checkToken() {
+     mainApi
       .getAppInfo()
       .then((result) => {
         const [dataUser, dataMovies] = result;
         setCurrentUser(dataUser.dataUser);
         setSavedMoviesList(dataMovies.dataMovies);
         setLogged(true);
+        return
       })
       .catch((error) => {
         setLogged(false);

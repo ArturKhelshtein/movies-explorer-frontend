@@ -33,13 +33,14 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   // первый рендеринг
   React.useEffect(() => {
     updateMovieCounters(windowSize);
-    setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
-    // setSearchQuery(localStorage.getItem('query') || '');
-    // setFilterShortMovies(JSON.parse(localStorage.getItem('filterShortMovies')));
-    if (localStorage.getItem('query') === null) {
+    setSearchQuery(localStorage.getItem('query') || '');
+    setFilterShortMovies(
+      JSON.parse(localStorage.getItem('filterShortMovies') || true)
+    );
+    if (localStorage.getItem('query') !== '') {
+      setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
   }, []);
 
   // рендеринг при поиске
@@ -51,8 +52,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       addQueryToLocalStorage();
       handlerFindMoviesList();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, filterShortMovies, savedMoviesList]);
+  }, [searchQuery, filterShortMovies, isLoading]);
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
@@ -148,8 +148,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       setIsLoading(true);
       await addReseponseBeatfilm();
     }
-      addQueryToLocalStorage();
-      handlerFindMoviesList();
+    addQueryToLocalStorage();
+    handlerFindMoviesList();
 
     setIsLoading(false);
   }

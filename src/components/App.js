@@ -69,7 +69,6 @@ function App() {
 
   return (
     <div className="app">
-      {isTokenChecked ? (
         <CurrentUserContext.Provider value={currentUser}>
           <Header isLogged={isLogged} />
           <Routes>
@@ -145,9 +144,6 @@ function App() {
           </Routes>
           <Footer />
         </CurrentUserContext.Provider>
-      ) : (
-        <Preloader />
-      )}
     </div>
   );
 }

@@ -52,7 +52,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       addQueryToLocalStorage();
       handlerFindMoviesList();
     }
-  }, [searchQuery, filterShortMovies, isLoading]);
+  }, [handleSubmitSearch, filterShortMovies, isLoading]);
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {

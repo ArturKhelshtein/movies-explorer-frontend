@@ -45,6 +45,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при поиске
   React.useEffect(() => {
+    console.log('1');
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
@@ -52,10 +53,11 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       addQueryToLocalStorage();
       handlerFindMoviesList();
     }
-  }, [handleSubmitSearch, filterShortMovies, isLoading]);
+  }, [localStorage.getItem('query'), filterShortMovies, isLoading]);
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
+    console.log('2');
     updateMovieCounters(windowSize);
     setShowMovieList(findMoviesList?.slice(0, ammountShowMovies));
     if (isLoading === null || isLoading === true) {
@@ -65,13 +67,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       return setVisibleButtonDownloads(false);
     }
     setVisibleButtonDownloads(true);
-  }, [
-    isLoading,
-    ammountShowMovies,
-    findMoviesList,
-    windowSize,
-    savedMoviesList,
-  ]);
+  }, [isLoading, findMoviesList]);
 
   // слушатель ширины экрана
   (function () {

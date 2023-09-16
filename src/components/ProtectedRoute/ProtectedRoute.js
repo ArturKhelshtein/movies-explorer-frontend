@@ -12,7 +12,7 @@ const ProtectedRoute = ({
     if (!isTokenChecked) {
       checkToken();
     }
-  }, [isTokenChecked]);
+  }, [checkToken, isTokenChecked]);
 
   if (!isTokenChecked) {
     return null;

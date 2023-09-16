@@ -15,6 +15,7 @@ import Login from './Login/Login.js';
 import NoFound from './NoFound/NoFound.js';
 import mainApi from '../utils/MainApi';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import Preloader from './Preloader/Preloader';
 
 function App() {
   // состояния приложения
@@ -67,85 +68,89 @@ function App() {
   console.log(isLogged);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="app">
-        <Header isLogged={isLogged} />
-        <Routes>
-          <Route
-            path="/signup"
-            element={
-              <Register
-                isSendRequest={isSendRequest}
-                setSendRequest={setSendRequest}
-                title="Добро пожаловать!"
-                linkDescription="Уже зарегистрированы?"
-                linkText="Войти"
-                linkTo="/signin"
-                setLogged={setLogged}
-              />
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <Login
-                isSendRequest={isSendRequest}
-                setSendRequest={setSendRequest}
-                title="Рады видеть!"
-                linkDescription="Ещё не&nbsp;зарегистрированы?"
-                linkText="Регистрация"
-                linkTo="/signup"
-                setLogged={setLogged}
-              />
-            }
-          />
-          <Route path="/" element={<Main />} />
+    <div className="app">
+      {isTokenChecked ? (
+        <CurrentUserContext.Provider value={currentUser}>
+          <Header isLogged={isLogged} />
+          <Routes>
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  isSendRequest={isSendRequest}
+                  setSendRequest={setSendRequest}
+                  title="Добро пожаловать!"
+                  linkDescription="Уже зарегистрированы?"
+                  linkText="Войти"
+                  linkTo="/signin"
+                  setLogged={setLogged}
+                />
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  isSendRequest={isSendRequest}
+                  setSendRequest={setSendRequest}
+                  title="Рады видеть!"
+                  linkDescription="Ещё не&nbsp;зарегистрированы?"
+                  linkText="Регистрация"
+                  linkTo="/signup"
+                  setLogged={setLogged}
+                />
+              }
+            />
+            <Route path="/" element={<Main />} />
 
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRoute
-                isTokenChecked={isTokenChecked}
-                checkToken={checkToken}
-                isLogged={isLogged}
-                element={Movies}
-                savedMoviesList={savedMoviesList}
-                setSavedMoviesList={setSavedMoviesList}
-              />
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <ProtectedRoute
-                isTokenChecked={isTokenChecked}
-                checkToken={checkToken}
-                isLogged={isLogged}
-                element={SavedMovies}
-                savedMoviesList={savedMoviesList}
-                setSavedMoviesList={setSavedMoviesList}
-              />
-            }
-          />
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRoute
+                  isTokenChecked={isTokenChecked}
+                  checkToken={checkToken}
+                  isLogged={isLogged}
+                  element={Movies}
+                  savedMoviesList={savedMoviesList}
+                  setSavedMoviesList={setSavedMoviesList}
+                />
+              }
+            />
+            <Route
+              path="/saved-movies"
+              element={
+                <ProtectedRoute
+                  isTokenChecked={isTokenChecked}
+                  checkToken={checkToken}
+                  isLogged={isLogged}
+                  element={SavedMovies}
+                  savedMoviesList={savedMoviesList}
+                  setSavedMoviesList={setSavedMoviesList}
+                />
+              }
+            />
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                isTokenChecked={isTokenChecked}
-                checkToken={checkToken}
-                isSendRequest={isSendRequest}
-                setSendRequest={setSendRequest}
-                isLogged={isLogged}
-                element={Profile}
-              />
-            }
-          />
-          <Route path="/*" element={<NoFound />} />
-        </Routes>
-        <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  isTokenChecked={isTokenChecked}
+                  checkToken={checkToken}
+                  isSendRequest={isSendRequest}
+                  setSendRequest={setSendRequest}
+                  isLogged={isLogged}
+                  element={Profile}
+                />
+              }
+            />
+            <Route path="/*" element={<NoFound />} />
+          </Routes>
+          <Footer />
+        </CurrentUserContext.Provider>
+      ) : (
+        <Preloader />
+      )}
+    </div>
   );
 }
 

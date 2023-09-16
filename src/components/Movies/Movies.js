@@ -39,6 +39,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
     if (localStorage.getItem('query') === null) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   // рендеринг при поиске
@@ -51,7 +52,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       handlerFindMoviesList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, filterShortMovies, showMovieList]);
+  }, [searchQuery, filterShortMovies, savedMoviesList]);
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {

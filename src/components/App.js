@@ -20,6 +20,7 @@ function App() {
   // состояния приложения
   const [isSendRequest, setSendRequest] = React.useState(false);
   const [isLogged, setLogged] = React.useState(false);
+  const [isTokenChecked, setTokenChecked] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
@@ -38,28 +39,32 @@ function App() {
           setCurrentUser(dataUser.dataUser);
           setSavedMoviesList(dataMovies.dataMovies);
         })
-        .catch((error) => console.error(
-          `Ошибка при получении данных пользователя/списка сохраненных фильмов: ${error}`
-        ));
+        .catch((error) =>
+          console.error(
+            `Ошибка при получении данных пользователя/списка сохраненных фильмов: ${error}`
+          )
+        );
     }
   }, [isLogged]);
 
-  function checkToken() {
-    mainApi
-      .getAppInfo()
-      .then((data) => {
-        if (!data) {
-          return;
-        }
+  async function checkToken() {
+    try {
+      const data = await mainApi.getContent();
+      if (data) {
+        setCurrentUser(data);
         setLogged(true);
-      })
-      .catch((error) => {
-        setLogged(false);
-        setCurrentUser({});
-        setSavedMoviesList({});
-        console.error(`Ошибка при проверке токена пользователя: ${error}`);
-      });
+      }
+    } catch (error) {
+      setLogged(false);
+      setCurrentUser({});
+      setSavedMoviesList([]);
+      console.error(`Ошибка при проверке токена пользователя: ${error}`);
+    } finally {
+      setTokenChecked(true);
+    }
   }
+
+  console.log(isLogged);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -100,6 +105,8 @@ function App() {
             path="/movies"
             element={
               <ProtectedRoute
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
                 isLogged={isLogged}
                 element={Movies}
                 savedMoviesList={savedMoviesList}
@@ -111,6 +118,8 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
                 isLogged={isLogged}
                 element={SavedMovies}
                 savedMoviesList={savedMoviesList}
@@ -123,12 +132,12 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute
-                isLogged={isLogged}
-                element={Profile}
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
-                setLogged={setLogged}
-                setCurrentUser={setCurrentUser}
+                isLogged={isLogged}
+                element={Profile}
               />
             }
           />

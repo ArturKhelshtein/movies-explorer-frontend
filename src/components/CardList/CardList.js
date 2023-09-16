@@ -41,11 +41,10 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       })
-      .then((savedMovie) => {
-        setSavedMoviesList((s) => [...s, savedMovie]);
-      })
       .then(() => mainApi.getMovies())
       .then((dataMovies) => {
+        console.log(dataMovies)
+        console.log(dataMovies.dataMovies)
         setSavedMoviesList(dataMovies.dataMovies);
       })
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));

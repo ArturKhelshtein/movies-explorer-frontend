@@ -5,9 +5,7 @@ class MainApi {
   }
 
   _checkResponse(result) {
-    return result.ok
-      ? result.json()
-      : Promise.reject(result);
+    return result.ok ? result.json() : Promise.reject(result);
   }
 
   _request(endpoint, options) {
@@ -45,6 +43,16 @@ class MainApi {
       credentials: 'include',
       method: 'GET',
       headers: this._headers,
+    });
+  }
+
+  getContent() {
+    return this._request(`/users/me`, {
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 

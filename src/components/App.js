@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
@@ -19,10 +19,9 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 function App() {
   // состояния приложения
   const [isSendRequest, setSendRequest] = React.useState(false);
-  const [isLogged, setLogged] = React.useState(true);
+  const [isLogged, setLogged] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
-  const navigate = useNavigate();
 
   console.log(savedMoviesList);
 
@@ -30,15 +29,29 @@ function App() {
     checkToken();
   }, []);
 
-   function checkToken() {
-     mainApi
+  React.useEffect(() => {
+    if (isLogged) {
+      mainApi
+        .getAppInfo()
+        .then((result) => {
+          const [dataUser, dataMovies] = result;
+          setCurrentUser(dataUser.dataUser);
+          setSavedMoviesList(dataMovies.dataMovies);
+        })
+        .catch((error) => console.error(
+          `Ошибка при получении данных пользователя/списка сохраненных фильмов: ${error}`
+        ));
+    }
+  }, [isLogged]);
+
+  function checkToken() {
+    mainApi
       .getAppInfo()
-      .then((result) => {
-        const [dataUser, dataMovies] = result;
-        setCurrentUser(dataUser.dataUser);
-        setSavedMoviesList(dataMovies.dataMovies);
+      .then((data) => {
+        if (!data) {
+          return;
+        }
         setLogged(true);
-        return
       })
       .catch((error) => {
         setLogged(false);

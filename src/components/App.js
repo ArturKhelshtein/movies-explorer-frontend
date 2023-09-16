@@ -120,8 +120,6 @@ function App() {
               path="/saved-movies"
               element={
                 <ProtectedRoute
-                  isTokenChecked={isTokenChecked}
-                  checkToken={checkToken}
                   isLogged={isLogged}
                   element={SavedMovies}
                   savedMoviesList={savedMoviesList}
@@ -134,12 +132,12 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRoute
-                  isTokenChecked={isTokenChecked}
-                  checkToken={checkToken}
-                  isSendRequest={isSendRequest}
-                  setSendRequest={setSendRequest}
                   isLogged={isLogged}
                   element={Profile}
+                  isSendRequest={isSendRequest}
+                  setSendRequest={setSendRequest}
+                  setLogged={setLogged}
+                   setCurrentUser={setCurrentUser}
                 />
               }
             />

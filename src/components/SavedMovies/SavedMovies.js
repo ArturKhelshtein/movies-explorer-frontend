@@ -14,7 +14,7 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
   // состояние поиска
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
-  const [filterShortMovies, setFilterShortMovies] = React.useState(true);
+  const [filterShortMovies, setFilterShortMovies] = React.useState(false);
 
   // рендеринг при поиске и удалении
   React.useEffect(() => {

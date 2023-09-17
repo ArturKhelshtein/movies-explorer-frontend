@@ -43,24 +43,13 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
       })
       .then((data) => {
         setSavedMoviesList([...savedMoviesList, data.dataMovies])
-        // console.log(savedMoviesList)
-        console.log(data.dataMovies)
-        // isSaveMovie(data.dataMovies)
-        // if (
-        //   savedMoviesList[i].movieId === data.movieId) {
-        //     return isSave = true
-        //   } isSave = false
-        // })
-      // .then(() => mainApi.getMovies())
-      // .then((dataMovies) => {
-      //   setSavedMoviesList(dataMovies.dataMovies);
       })
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }
 
   function handlerDeleteMovie(movie) {
     const deleteMovie = savedMoviesList?.find((i) => {
-      if (i.owner._id === currentUser._id) {
+      if (i.owner === currentUser._id) {
         return i.movieId === (movie.id || movie.movieId);
       }
       // eslint-disable-next-line array-callback-return

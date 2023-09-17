@@ -75,6 +75,7 @@ function App() {
             path="/signup"
             element={
               <Register
+              isLogged={isLogged}
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
                 title="Добро пожаловать!"
@@ -89,6 +90,7 @@ function App() {
             path="/signin"
             element={
               <Login
+              isLogged={isLogged}
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
                 title="Рады видеть!"

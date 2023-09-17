@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 import mainApi from '../../utils/MainApi';
 import Sign from '../Sign/Sign';
@@ -10,6 +10,7 @@ import {
 } from '../../utils/errorText';
 
 function Login({
+  isLogged,
   isSendRequest,
   setSendRequest,
   title,
@@ -54,7 +55,7 @@ function Login({
       .finally(() => setSendRequest(false));
   }
 
-  return (
+  return !isLogged ? (
     <Sign
       title={title}
       buttonName={`${isSendRequest ? 'Входим...' : 'Войти'}`}
@@ -100,6 +101,8 @@ function Login({
         {errors.password || ' '}
       </span>
     </Sign>
+  ) : (
+    <Navigate to="/" replace />
   );
 }
 

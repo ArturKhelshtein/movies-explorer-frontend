@@ -18,6 +18,7 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при поиске и удалении
   React.useEffect(() => {
+    console.log('рендеринг при поиске и удалении')
     handlerFindMoviesList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, filterShortMovies, savedMoviesList]);

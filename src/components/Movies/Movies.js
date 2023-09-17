@@ -45,7 +45,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при поиске
   React.useEffect(() => {
-    console.log('1');
+    console.log('рендеринг при поиске')
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
@@ -57,7 +57,6 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
-    console.log('2');
     updateMovieCounters(windowSize);
     setShowMovieList(findMoviesList?.slice(0, ammountShowMovies));
     if (isLoading === null || isLoading === true) {
@@ -67,7 +66,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       return setVisibleButtonDownloads(false);
     }
     setVisibleButtonDownloads(true);
-  }, [isLoading, findMoviesList]);
+  }, [isLoading, findMoviesList, ammountShowMovies]);
 
   // слушатель ширины экрана
   (function () {
@@ -155,8 +154,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       fullMovieList?.filter(
         (m) =>
           (filterShortMovies ? m.duration < 40 : m) &&
-          (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query')) > -1 ||
-            m.nameEN.toLowerCase().indexOf(localStorage.getItem('query')) > -1)
+          (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query').toLowerCase()) > -1 ||
+            m.nameEN.toLowerCase().indexOf(localStorage.getItem('query').toLowerCase()) > -1)
       )
     );
   }

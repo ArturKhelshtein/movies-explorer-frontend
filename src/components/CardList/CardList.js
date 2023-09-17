@@ -12,13 +12,13 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
 
-  React.useEffect(() => {}, [savedMoviesList]);
+  React.useEffect(() => {console.log('рендеринг CardList')}, [savedMoviesList]);
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {
       if (
         savedMoviesList[i].movieId === movie.id &&
-        savedMoviesList[i].owner._id === currentUser._id
+        savedMoviesList[i].owner === currentUser._id
       ) {
         return true;
       }
@@ -41,11 +41,19 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       })
-      .then(() => mainApi.getMovies())
-      .then((dataMovies) => {
-        console.log(dataMovies)
-        console.log(dataMovies.dataMovies)
-        setSavedMoviesList(dataMovies.dataMovies);
+      .then((data) => {
+        setSavedMoviesList([...savedMoviesList, data.dataMovies])
+        // console.log(savedMoviesList)
+        console.log(data.dataMovies)
+        // isSaveMovie(data.dataMovies)
+        // if (
+        //   savedMoviesList[i].movieId === data.movieId) {
+        //     return isSave = true
+        //   } isSave = false
+        // })
+      // .then(() => mainApi.getMovies())
+      // .then((dataMovies) => {
+      //   setSavedMoviesList(dataMovies.dataMovies);
       })
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }

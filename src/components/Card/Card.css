@@ -4,7 +4,7 @@
   grid-template-areas:
     "img"
     "about";
-  grid-template-rows: 151px 67px;
+  grid-template-rows: 151px minmax(67px, max-content);
   border-radius: 10px;
   overflow: hidden;
   background-color: #fff;
@@ -12,12 +12,12 @@
 }
 @media (max-width: 999px) {
   .movies-card {
-    grid-template-rows: 190px 67px;
+    grid-template-rows: 190px minmax(67px, max-content);
   }
 }
 @media (max-width: 765px) {
   .movies-card {
-    grid-template-rows: 168px 67px;
+    grid-template-rows: 168px minmax(67px, max-content);
   }
 }
 

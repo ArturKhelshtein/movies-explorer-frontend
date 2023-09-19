@@ -7,6 +7,8 @@ import useFormWithValidation from '../../hooks/useFormWithValidatiion';
 import {
   ERRORTEXT_REGISTER,
   ERRORTEXT_REGISTER_OCCUPIEDEMAIL,
+  ERRORTEXT_LOGIN,
+  ERRORTEXT_LOGIN_WRONGTOKEN,
 } from '../../utils/errorText';
 
 function Register({
@@ -29,21 +31,19 @@ function Register({
     resetForm({}, {}, false);
   }, [resetForm]);
 
-  function handleRegisterSubmit(event) {
+  async function handleRegisterSubmit(event) {
     event.preventDefault();
     setSendRequest(true);
     const { email, name, password } = values;
     setErrorText('');
 
-    mainApi
+    await mainApi
       .signUp({ name, email, password })
       .then(() => {
         navigate('/movies', { replace: true });
-        setLogged(true);
         setErrorRequest(false);
       })
       .catch((error) => {
-        setLogged(false);
         setErrorRequest(true);
         if (error.status === 409) {
           setErrorText(ERRORTEXT_REGISTER_OCCUPIEDEMAIL);
@@ -52,6 +52,24 @@ function Register({
         }
         setErrorText(ERRORTEXT_REGISTER);
         console.error(ERRORTEXT_REGISTER);
+      });
+
+    await mainApi
+      .signIn({ email, password })
+      .then(() => {
+        navigate('/movies', { replace: true });
+        setLogged(true);
+        setErrorRequest(false);
+      })
+      .catch((error) => {
+        setLogged(false);
+        setErrorRequest(true);
+        if (error.status === 401) {
+          setErrorText(ERRORTEXT_LOGIN_WRONGTOKEN);
+          console.error(ERRORTEXT_LOGIN_WRONGTOKEN);
+        }
+        setErrorText(ERRORTEXT_LOGIN);
+        console.error(ERRORTEXT_LOGIN);
       })
       .finally(() => setSendRequest(false));
   }
@@ -120,7 +138,7 @@ function Register({
       </span>
     </Sign>
   ) : (
-    <Navigate to="/" replace />
+    <Navigate to="/profile" replace />
   );
 }
 

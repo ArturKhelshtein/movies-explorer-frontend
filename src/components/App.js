@@ -25,12 +25,10 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
   React.useEffect(() => {
-    console.log('APP рендеринг проверка токена');
     checkToken();
   }, []);
 
   React.useEffect(() => {
-    console.log('APP рендеринг если залогинен то установка данных');
     if (isLogged) {
       mainApi
         .getAppInfo()

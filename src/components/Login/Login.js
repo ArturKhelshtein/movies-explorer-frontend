@@ -102,7 +102,7 @@ function Login({
       </span>
     </Sign>
   ) : (
-    <Navigate to="/" replace />
+    <Navigate to="/profile" replace />
   );
 }
 

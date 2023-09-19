@@ -12,7 +12,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
 
-  React.useEffect(() => {console.log('CardList рендеринг')}, [showMovieList, savedMoviesList]);
+  React.useEffect(() => {}, [showMovieList, savedMoviesList]);
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {
@@ -42,7 +42,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
         nameEN: movie.nameEN,
       })
       .then((data) => {
-        setSavedMoviesList([...savedMoviesList, data.dataMovies])
+        setSavedMoviesList([...savedMoviesList, data.dataMovies]);
       })
       .catch((error) => console.error(`${ERRORTEXT_SERVERERROR} ${error}`));
   }

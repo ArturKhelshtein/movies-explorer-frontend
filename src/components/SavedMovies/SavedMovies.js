@@ -9,8 +9,6 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
   // состояния списков фильмов
   const [findMoviesList, setFindMoviesList] = React.useState(savedMoviesList);
 
-  console.log(findMoviesList);
-
   // состояние поиска
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
@@ -18,7 +16,6 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при поиске и удалении
   React.useEffect(() => {
-    console.log('рендеринг при поиске и удалении')
     handlerFindMoviesList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, filterShortMovies, savedMoviesList]);

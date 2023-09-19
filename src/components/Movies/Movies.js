@@ -7,10 +7,12 @@ import SearchForm from '../SearchForm/SearchForm.js';
 import Preloader from '../Preloader/Preloader.js';
 import CardList from '../CardList/CardList.js';
 import DownloadMore from '../DownloadMore/DownloadMore.js';
+import { useResize } from '../../hooks/useResize';
 
 function Movies({ savedMoviesList, setSavedMoviesList }) {
+  const { width } = useResize();
   // состояния количества отображаемых фильмов
-  const [windowSize, setWindowSize] = React.useState(window.innerWidth);
+  // const [windowSize, setWindowSize] = React.useState(window.innerWidth);
   const [gridColumns, setGridColumns] = React.useState(0);
   const [gridRows, setGridRows] = React.useState(0);
   const [ammountShowMovies, setAmmountShowMovies] = React.useState(0);
@@ -36,10 +38,8 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // первый рендеринг
   React.useEffect(() => {
-    updateMovieCounters(windowSize);
-    console.log('MOVIES первый рендер');
+    updateMovieCounters(width);
     if (localStorage.getItem('query') !== null) {
-      console.log(localStorage.getItem('query'))
       setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
       setIsLoading(false);
     }
@@ -48,9 +48,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при поиске
   React.useEffect(() => {
-    console.log('MOVIES рендеринг при поиске');
-    setWindowSize(window.innerWidth);
-    updateMovieCounters(windowSize);
+    updateMovieCounters(width);
     setAmmountShowMovies(() => gridColumns * gridRows);
     if (localStorage.getItem('dataMovies') !== null) {
       addQueryToLocalStorage();
@@ -60,8 +58,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
-    console.log('MOVIES догрузке фильмов');
-    updateMovieCounters(windowSize);
+    updateMovieCounters(width);
     setShowMovieList(findMoviesList?.slice(0, ammountShowMovies));
     if (isLoading === null || isLoading === true) {
       return setVisibleButtonDownloads(false);
@@ -70,26 +67,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       return setVisibleButtonDownloads(false);
     }
     setVisibleButtonDownloads(true);
-  }, [isLoading, findMoviesList, ammountShowMovies]);
-
-  // слушатель ширины экрана
-  (function () {
-    window.addEventListener('resize', resizeThrottler, false);
-
-    let resizeTimeout;
-    function resizeThrottler() {
-      if (!resizeTimeout) {
-        resizeTimeout = setTimeout(function () {
-          resizeTimeout = null;
-          actualResizeHandler();
-        }, 1000);
-      }
-    }
-
-    function actualResizeHandler() {
-      setWindowSize(window.innerWidth);
-    }
-  })();
+  }, [isLoading, findMoviesList, ammountShowMovies, width]);
 
   function updateMovieCounters(width) {
     if (width > 1279) {
@@ -113,6 +91,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   }
 
   function handleDownloadMore() {
+    updateMovieCounters(width);
     let complementToFull;
     if ((ammountShowMovies + additionalDownloads) % gridColumns === 0) {
       complementToFull = 0;

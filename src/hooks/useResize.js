@@ -1,19 +1,28 @@
 import React from 'react';
-import { SCREEN_M, SCREEN_L, SCREEN_XL } from '../utils/const-breakpoints';
 
 export function useResize() {
   const [width, setWidth] = React.useState(window.innerWidth);
 
   React.useEffect(() => {
-    const handleResize = (event) => setWidth(event.target.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    let resizeTimeout;
+    function resizeThrottler(event) {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function () {
+          resizeTimeout = null;
+          actualResizeHandler(event);
+        }, 0);
+      }
+    }
+
+    function actualResizeHandler(event) {
+      setWidth(event.target.innerWidth);
+    }
+    window.addEventListener('resize', resizeThrottler);
+    return () => window.removeEventListener('resize', resizeThrottler);
   }, []);
+
 
   return {
     width,
-    isScreenS: width <= SCREEN_M,
-    isScreenM: width > SCREEN_M && width <= SCREEN_L,
-    isScreenL: width > SCREEN_L && width <= SCREEN_XL,
-    isScreenXL: width > SCREEN_XL };
+  };
 }

@@ -26,26 +26,29 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
   const [showMovieList, setShowMovieList] = React.useState([]);
 
   // состояние поиска
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState(
+    localStorage.getItem('query') || ''
+  );
   const [isSearchQueryError, setIsSearchQueryError] = React.useState(false);
-  const [filterShortMovies, setFilterShortMovies] = React.useState(false);
+  const [filterShortMovies, setFilterShortMovies] = React.useState(
+    JSON.parse(localStorage.getItem('filterShortMovies') || false)
+  );
 
   // первый рендеринг
   React.useEffect(() => {
     updateMovieCounters(windowSize);
-    setSearchQuery(localStorage.getItem('query') || '');
-    setFilterShortMovies(
-      JSON.parse(localStorage.getItem('filterShortMovies') || true)
-    );
-    if (localStorage.getItem('query') !== '') {
+    console.log('MOVIES первый рендер');
+    if (localStorage.getItem('query') !== null) {
+      console.log(localStorage.getItem('query'))
       setFullMovieList(JSON.parse(localStorage.getItem('dataMovies')));
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // рендеринг при поиске
   React.useEffect(() => {
-    console.log('рендеринг при поиске')
+    console.log('MOVIES рендеринг при поиске');
     setWindowSize(window.innerWidth);
     updateMovieCounters(windowSize);
     setAmmountShowMovies(() => gridColumns * gridRows);
@@ -57,6 +60,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
 
   // рендеринг при показе фильмов и догрузке фильмов
   React.useEffect(() => {
+    console.log('MOVIES догрузке фильмов');
     updateMovieCounters(windowSize);
     setShowMovieList(findMoviesList?.slice(0, ammountShowMovies));
     if (isLoading === null || isLoading === true) {
@@ -154,8 +158,12 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
       fullMovieList?.filter(
         (m) =>
           (filterShortMovies ? m.duration < 40 : m) &&
-          (m.nameRU.toLowerCase().indexOf(localStorage.getItem('query').toLowerCase()) > -1 ||
-            m.nameEN.toLowerCase().indexOf(localStorage.getItem('query').toLowerCase()) > -1)
+          (m.nameRU
+            .toLowerCase()
+            .indexOf(localStorage.getItem('query').toLowerCase()) > -1 ||
+            m.nameEN
+              .toLowerCase()
+              .indexOf(localStorage.getItem('query').toLowerCase()) > -1)
       )
     );
   }

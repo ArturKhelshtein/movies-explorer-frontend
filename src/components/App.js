@@ -24,13 +24,13 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
-  console.log(savedMoviesList);
-
   React.useEffect(() => {
+    console.log('APP рендеринг проверка токена');
     checkToken();
   }, []);
 
   React.useEffect(() => {
+    console.log('APP рендеринг если залогинен то установка данных');
     if (isLogged) {
       mainApi
         .getAppInfo()
@@ -58,13 +58,12 @@ function App() {
       setLogged(false);
       setCurrentUser({});
       setSavedMoviesList([]);
+      localStorage.clear();
       console.error(`Ошибка при проверке токена пользователя: ${error}`);
     } finally {
       setTokenChecked(true);
     }
   }
-
-  console.log(isLogged);
 
   return (
     <div className="app">
@@ -75,7 +74,7 @@ function App() {
             path="/signup"
             element={
               <Register
-              isLogged={isLogged}
+                isLogged={isLogged}
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
                 title="Добро пожаловать!"
@@ -90,7 +89,7 @@ function App() {
             path="/signin"
             element={
               <Login
-              isLogged={isLogged}
+                isLogged={isLogged}
                 isSendRequest={isSendRequest}
                 setSendRequest={setSendRequest}
                 title="Рады видеть!"

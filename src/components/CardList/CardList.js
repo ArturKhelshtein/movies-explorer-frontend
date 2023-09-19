@@ -12,7 +12,7 @@ function CardList({ showMovieList, savedMoviesList, setSavedMoviesList }) {
   const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
 
-  React.useEffect(() => {console.log('рендеринг CardList')}, [savedMoviesList]);
+  React.useEffect(() => {console.log('CardList рендеринг')}, [showMovieList, savedMoviesList]);
 
   function isSaveMovie(movie) {
     for (let i = 0; i < savedMoviesList.length; i++) {

@@ -12,7 +12,6 @@ import { useResize } from '../../hooks/useResize';
 function Movies({ savedMoviesList, setSavedMoviesList }) {
   const { width } = useResize();
   // состояния количества отображаемых фильмов
-  // const [windowSize, setWindowSize] = React.useState(window.innerWidth);
   const [gridColumns, setGridColumns] = React.useState(0);
   const [gridRows, setGridRows] = React.useState(0);
   const [ammountShowMovies, setAmmountShowMovies] = React.useState(0);

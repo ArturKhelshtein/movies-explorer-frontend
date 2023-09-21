@@ -18,7 +18,7 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
   React.useEffect(() => {
     handlerFindMoviesList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, filterShortMovies, savedMoviesList]);
+  }, [filterShortMovies, savedMoviesList]);
 
   function handleSubmitSearch(event) {
     event.preventDefault();
@@ -43,8 +43,8 @@ function SavedMovies({ savedMoviesList, setSavedMoviesList }) {
       savedMoviesList?.filter(
         (m) =>
           (filterShortMovies ? m.duration < 40 : m) &&
-          (m.nameRU.toLowerCase().indexOf(searchQuery) > -1 ||
-            m.nameEN.toLowerCase().indexOf(searchQuery) > -1)
+          (m.nameRU.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1 ||
+            m.nameEN.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1)
       )
     );
   }

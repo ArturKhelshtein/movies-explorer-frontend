@@ -11,8 +11,12 @@
   cursor: pointer;
 }
 .button:focus-visible {
-	outline: #3456F3 solid;
-	border-radius: 2px;
+  outline: #3456f3 solid;
+  border-radius: 2px;
+}
+.button:disabled {
+  color: #c2c2c2;
+  cursor: default;
 }
 @media (max-width: 669px) {
   .button {
@@ -73,7 +77,7 @@
 @media (max-width: 669px) {
   .button_type_profile-edit {
     font-size: 11px;
-		letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -85,7 +89,7 @@
 @media (max-width: 669px) {
   .button_type_profile-signout {
     font-size: 11px;
-		letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -98,6 +102,9 @@
   color: #fff;
   font-size: 14px;
   font-weight: 500;
+}
+.button_type_submit-form:disabled {
+  background-color: #f8f8f8;
 }
 @media (max-width: 669px) {
   .button_type_submit-form {

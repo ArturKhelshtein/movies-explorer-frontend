@@ -1,10 +1,10 @@
 import './MainSection.css';
 
-function MainSection({ title, id, children, style = '' }) {
+function MainSection({ title, id, children, style, bgcolorstyle }) {
   return (
     <section
       id={id}
-      className='main-section' 
+      className={`main-section ${bgcolorstyle ? `main-section_type_${bgcolorstyle}` : '' }`}
     >
       <div className={`main-section__container ${style ? `main-section__container_type_${style}` : ''}`}>
         <h2 className="main-section__title">{title}</h2>

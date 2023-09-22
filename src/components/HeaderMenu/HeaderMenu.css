@@ -13,7 +13,6 @@
 
 .header__menu-container_unwrapped {
 }
-
 @media (max-width: 999px) {
   .header__menu-container_unwrapped {
     position: fixed;
@@ -25,9 +24,9 @@
     flex-direction: column;
     background-color: #fff;
     animation: unwrapped 0.1s ease;
+    z-index: 9;
   }
 }
-
 @keyframes unwrapped {
   0% {
     transform: translate(520px);
@@ -36,3 +35,33 @@
     transform: translate(0);
   }
 }
+
+.header__overlay {
+  display: none;
+}
+
+.header__overlay_visible {
+}
+@media (max-width: 999px) {
+  .header__overlay_visible {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+    animation: blackout 0.1s;
+    z-index: 1;
+  }
+}
+@keyframes blackout {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+

@@ -4,7 +4,12 @@ import MainSection from '../MainSection/MainSection';
 
 function Techs() {
   return (
-    <MainSection title="Технологии" id="techs" style={`techs`}>
+    <MainSection
+      title="Технологии"
+      id="techs"
+      bgcolorstyle={`techs`}
+      style={`techs`}
+    >
       <div className="techs">
         <h3 className="techs__header">7 технологий</h3>
         <p className="techs__paragraph">

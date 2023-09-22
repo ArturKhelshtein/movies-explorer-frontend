@@ -47,7 +47,9 @@ function App() {
 
   async function checkToken() {
     try {
-      const data = await mainApi.getContent();
+      const data = await mainApi
+        .getContent()
+        .catch((error) => console.log(error));
       if (data) {
         setCurrentUser(data);
         setLogged(true);

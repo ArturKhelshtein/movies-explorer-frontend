@@ -179,7 +179,7 @@ function Movies({ savedMoviesList, setSavedMoviesList }) {
           filterShortMovies={filterShortMovies}
           setFilterShortMovies={setFilterShortMovies}
         />
-        {isLoading === null ? (
+        {isLoading === null || isSearchQueryError ? (
           <></>
         ) : isLoading === true ? (
           <Preloader />

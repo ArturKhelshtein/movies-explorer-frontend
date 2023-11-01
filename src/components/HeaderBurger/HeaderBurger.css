@@ -16,6 +16,7 @@
     justify-content: center;
     border: none;
     background-color: transparent;
+    z-index: 9;
   }
 }
 @media (max-width: 669px) {
@@ -87,7 +88,7 @@
   height: 0;
   width: 0;
   border: none;
-  opacity: 1;
+  opacity: 0;
 }
 
 .header-burger__checkbox-invisible:checked ~ .header-burger__icon {

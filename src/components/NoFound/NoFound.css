@@ -1,4 +1,7 @@
 .no-found {
+}
+
+.no-found__container {
   position: absolute;
   left: 0;
   top: 0;
@@ -15,9 +18,6 @@
   background-color: #fff;
   box-sizing: border-box;
   z-index: 99;
-}
-
-.no-found__container {
 }
 
 .no-found__error {

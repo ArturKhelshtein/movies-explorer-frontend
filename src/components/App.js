@@ -13,35 +13,75 @@ import Footer from './Footer/Footer.js';
 import Register from './Register/Register.js';
 import Login from './Login/Login.js';
 import NoFound from './NoFound/NoFound.js';
-import testData from '../utils/testData.js';
+import mainApi from '../utils/MainApi';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [isLogged, setLogged] = React.useState(true);
-  const [currentUser, setCurrentUser] = React.useState({
-    dataUser: {
-      _id: '64e60efa68ed58d7c156da14',
-      email: 'test@test.ru',
-      name: 'test',
-    },
-  });
+  // состояния приложения
+  const [isSendRequest, setSendRequest] = React.useState(false);
+  const [isLogged, setLogged] = React.useState(false);
+  const [isTokenChecked, setTokenChecked] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
-  const [moviesCards, setMoviesCards] = React.useState(testData);
+  React.useEffect(() => {
+    checkToken();
+  }, []);
+
+  React.useEffect(() => {
+    if (isLogged) {
+      mainApi
+        .getAppInfo()
+        .then((result) => {
+          const [dataUser, dataMovies] = result;
+          setCurrentUser(dataUser.dataUser);
+          setSavedMoviesList(dataMovies.dataMovies);
+        })
+        .catch((error) =>
+          console.error(
+            `Ошибка при получении данных пользователя/списка сохраненных фильмов: ${error}`
+          )
+        );
+    }
+  }, [isLogged]);
+
+  async function checkToken() {
+    try {
+      const data = await mainApi
+        .getContent()
+        .catch((error) => console.log(error));
+      if (data) {
+        setCurrentUser(data);
+        setLogged(true);
+      }
+    } catch (error) {
+      setLogged(false);
+      setCurrentUser({});
+      setSavedMoviesList([]);
+      localStorage.clear();
+      console.error(`Ошибка при проверке токена пользователя: ${error}`);
+    } finally {
+      setTokenChecked(true);
+    }
+  }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="app">
+    <div className="app">
+      <CurrentUserContext.Provider value={currentUser}>
         <Header isLogged={isLogged} />
         <Routes>
           <Route
             path="/signup"
             element={
               <Register
-                onSubmit={() => console.log('onSubmit')}
+                isLogged={isLogged}
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
                 title="Добро пожаловать!"
-                buttonName="Зарегестрироваться"
                 linkDescription="Уже зарегистрированы?"
                 linkText="Войти"
                 linkTo="/signin"
+                setLogged={setLogged}
               />
             }
           />
@@ -49,30 +89,66 @@ function App() {
             path="/signin"
             element={
               <Login
-                onSubmit={() => console.log('onSubmit')}
+                isLogged={isLogged}
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
                 title="Рады видеть!"
-                buttonName="Войти"
                 linkDescription="Ещё не&nbsp;зарегистрированы?"
                 linkText="Регистрация"
                 linkTo="/signup"
+                setLogged={setLogged}
               />
             }
           />
           <Route path="/" element={<Main />} />
+
           <Route
             path="/movies"
-            element={<Movies moviesCards={moviesCards} />}
+            element={
+              <ProtectedRoute
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
+                isLogged={isLogged}
+                element={Movies}
+                savedMoviesList={savedMoviesList}
+                setSavedMoviesList={setSavedMoviesList}
+              />
+            }
           />
           <Route
             path="/saved-movies"
-            element={<SavedMovies moviesCards={moviesCards} />}
+            element={
+              <ProtectedRoute
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
+                isLogged={isLogged}
+                element={SavedMovies}
+                savedMoviesList={savedMoviesList}
+                setSavedMoviesList={setSavedMoviesList}
+              />
+            }
           />
-          <Route path="/profile" element={<Profile setLogged={setLogged}/>} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                isTokenChecked={isTokenChecked}
+                checkToken={checkToken}
+                isLogged={isLogged}
+                element={Profile}
+                isSendRequest={isSendRequest}
+                setSendRequest={setSendRequest}
+                setLogged={setLogged}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
           <Route path="/*" element={<NoFound />} />
         </Routes>
         <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </div>
   );
 }
 

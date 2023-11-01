@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import './HeaderNavigation.css';
 
-function HeaderNavigation() {
+function HeaderNavigation({ setIsWrapped }) {
   const setActive = ({ isActive }) =>
     isActive
       ? 'header-navigation__link header-navigation__link_active'
@@ -14,17 +14,26 @@ function HeaderNavigation() {
       <NavLink
         to="/"
         className="header-navigation__link-container header-navigation__link-container_type_mobile"
+        onClick={() => setIsWrapped(true)}
       >
         {({ isActive }) => (
           <span className={setActive({ isActive })}>Главная</span>
         )}
       </NavLink>
-      <NavLink to="/movies" className="header-navigation__link-container">
+      <NavLink
+        to="/movies"
+        className="header-navigation__link-container"
+        onClick={() => setIsWrapped(true)}
+      >
         {({ isActive }) => (
           <span className={setActive({ isActive })}>Фильмы</span>
         )}
       </NavLink>
-      <NavLink to="/saved-movies" className="header-navigation__link-container">
+      <NavLink
+        to="/saved-movies"
+        className="header-navigation__link-container"
+        onClick={() => setIsWrapped(true)}
+      >
         {({ isActive }) => (
           <span className={setActive({ isActive })}>Сохранённые фильмы</span>
         )}

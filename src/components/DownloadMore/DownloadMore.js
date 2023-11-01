@@ -4,13 +4,9 @@ import './DownloadMore.css';
 
 import Button from '../Button/Button';
 
-const DownloadMore = () => {
-  function handleDownloadMore() {
-    return console.log('Загрузить еще! (заглушка)');
-  }
-
+function DownloadMore({ isVisibleButtonDownloads, handleDownloadMore }) {
   return (
-    <div className="download-more">
+    <div className={`download-more ${ isVisibleButtonDownloads ? '' : 'download-more_no'}`}>
       <Button
         type="download-more"
         buttonName="Ещё"
@@ -18,6 +14,6 @@ const DownloadMore = () => {
       />
     </div>
   );
-};
+}
 
 export default DownloadMore;

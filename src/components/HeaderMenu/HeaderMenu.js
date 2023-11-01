@@ -10,25 +10,51 @@ import HeaderBurger from '../HeaderBurger/HeaderBurger';
 
 function HeaderMenu() {
   const [isWrapped, setIsWrapped] = React.useState(true); //свернуто
-
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (isWrapped) return;
+
+    function handleOverlay(event) {
+      if (
+        event.target.classList.contains('header__overlay_visible')
+      ) {
+        setIsWrapped(true);
+      }
+    }
+
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setIsWrapped(true);
+      }
+    }
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('mousedown', handleOverlay);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleOverlay);
+    };
+  }, [isWrapped, setIsWrapped]);
 
   function goToAccount() {
     navigate('/profile');
     setIsWrapped(true);
   }
-  function handleToggleWrappedBurger() {
-    return isWrapped === false ? setIsWrapped(true) : setIsWrapped(false);
-  }
 
   return (
     <>
       <div
+        className={`header__overlay ${
+          isWrapped ? '' : 'header__overlay_visible'
+        }`}
+      ></div>
+      <div
         className={`header__menu-container ${
-          !isWrapped ? 'header__menu-container_unwrapped' : ''
+          isWrapped ? '' : 'header__menu-container_unwrapped'
         }`}
       >
-        <HeaderNavigation />
+        <HeaderNavigation setIsWrapped={setIsWrapped} />
         <Button
           type="account"
           buttonName="Аккаунт"
@@ -36,10 +62,7 @@ function HeaderMenu() {
           icon={<IconAccount />}
         />
       </div>
-      <HeaderBurger
-        handleToggleWrappedBurger={handleToggleWrappedBurger}
-        isWrapped={isWrapped}
-      />
+      <HeaderBurger isWrapped={isWrapped} setIsWrapped={setIsWrapped} />
     </>
   );
 }

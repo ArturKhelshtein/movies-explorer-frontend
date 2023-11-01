@@ -4,7 +4,15 @@ import IconSearch from '../IconSearch/IconSearch.js';
 import IconSearchButton from '../IconSearchButton/IconSearchButton.js';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm({
+  handleSubmitSearch,
+  searchQuery,
+  setSearchQuery,
+  isSearchQueryError,
+  filterShortMovies,
+  setFilterShortMovies,
+}) {
+
   return (
     <div className="search-form">
       <div className="search-form__search-container">
@@ -13,14 +21,17 @@ function SearchForm() {
         </div>
         <form
           className="search-form__form"
-          onSubmit={() => console.log('запрос на поиск отправлен')}
+          onSubmit={handleSubmitSearch}
+          noValidate
         >
           <input
-            className="search-form__input"
+            className={`search-form__input ${
+              isSearchQueryError ? 'search-form__input_error' : ''
+            }`}
             type="text"
             placeholder="Фильм"
-            value=""
-            onChange="заглушка"
+            value={searchQuery || ''}
+            onChange={(event) => setSearchQuery(event.target.value)}
             required
           />
           <div className="search-form__search-button-container">
@@ -35,11 +46,17 @@ function SearchForm() {
         </form>
         <div className="search-form__separator search-form__separator_type_vertical" />
         <div className="search-form__filter-desktop">
-          <FilterCheckbox />
+          <FilterCheckbox
+            filterShortMovies={filterShortMovies}
+            setFilterShortMovies={setFilterShortMovies}
+          />
         </div>
       </div>
       <div className="search-form__filter-mobile">
-        <FilterCheckbox />
+        <FilterCheckbox
+          filterShortMovies={filterShortMovies}
+          setFilterShortMovies={setFilterShortMovies}
+        />
       </div>
       <div className="search-form__separator search-form__separator_type_horizontal" />
     </div>

@@ -1,5 +1,16 @@
 # movies-explorer-frontend
-https://arturkhelshtein.nomoredomainsicu.ru/
+для работы клонировать репозиторий
+ git clone https://github.com/ArturKhelshtein/movies-explorer-frontend
+
+установить зависимости
+ npm ci
+
+запустить проект
+ npm run start
+
+для полноценной работы сначала запустить репозитория бэкенда
+
+ранее была размещена по адресу https://arturkhelshtein.nomoredomainsicu.ru/
 
 ## Описание проекта
 Дипломная работа Яндекс.Практикум. Репозиторий фронтенда

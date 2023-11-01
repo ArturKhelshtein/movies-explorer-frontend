@@ -1,12 +1,18 @@
 # movies-explorer-frontend
 для работы клонировать репозиторий
+```shell 
  git clone https://github.com/ArturKhelshtein/movies-explorer-frontend
+```
 
 установить зависимости
+```shell 
  npm ci
+```
 
 запустить проект
+```shell 
  npm run start
+```
 
 для полноценной работы сначала запустить репозитория бэкенда
 
